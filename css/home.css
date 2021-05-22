@@ -1,0 +1,224 @@
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+#background,
+#foreground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#background {
+  background-image: url(/assets/images/component/listen_music.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  filter: sepia(50%) brightness(20%) blur(4px);
+  transform: scale(1.05);
+}
+#layer-1,
+#layer-2 {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#small-part {
+  width: 25%;
+  min-width: 250px;
+  background-color: rgb(88, 87, 87);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+#btn-wrap {
+  gap: 20px;
+  display: flex;
+  position: absolute;
+  left: 2.5vw;
+  bottom: 20px;
+}
+.btn-type1 {
+  background-color: transparent;
+  outline: none;
+  width: 100px;
+  padding: 6px 0;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: solid 1px #eee;
+  color: #eee;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.btn-type1:hover {
+  color: rgb(88, 87, 87);
+  background-color: #eee;
+}
+.btn-type1:active {
+  background-color: #fff;
+  border: solid 1px #fff;
+}
+#big-part {
+  flex: 1;
+}
+#left-child,
+#right-child {
+  flex: 1;
+}
+#left-part,
+#right-part {
+  flex: 1;
+}
+#left-part {
+  display: flex;
+  justify-content: center;
+}
+#left-child {
+  max-width: 300px;
+  min-width: 300px;
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.left-child-edge {
+  height: calc(50% - 210px);
+  display: flex;
+  justify-content: flex-start;
+}
+.left-child-edge:nth-child(3) {
+  align-items: center;
+}
+#banner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#logo {
+  width: 100px;
+  height: 100px;
+  filter: invert(90%);
+}
+
+#site-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+.big-letter {
+  font-family: "ubuntu-bold";
+  font-size: 30px;
+}
+.big-letter:nth-child(2) {
+  margin-left: 10px;
+}
+#left-child-body {
+  flex: 1;
+}
+#left-child-body {
+  flex: 1;
+  display: flex;
+}
+#clip-wall {
+  flex: 1;
+  background-image: url(/assets/images/component/listen_music.jpg);
+  background-repeat: no-repeat;
+  background-position: 70% 100%;
+  background-size: cover;
+  filter: brightness(80%);
+  border-radius: 20px;
+  box-shadow: 0 0 3px #000;
+  transition: 0.2s;
+}
+#right-part {
+  display: flex;
+  flex-direction: column;
+}
+#top-sect,
+#bot-sect {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+#nav-wrap {
+  padding: 10px 0;
+  display: flex;
+  background-color: teal;
+  border-radius: 0 0 0 30px;
+  position: absolute;
+}
+.nav-item {
+  font-family: "ubuntu-light";
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ddd;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.nav-item:nth-child(2) {
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-color: #ccc;
+}
+.nav-item:hover {
+  color: #fff;
+}
+.nav-item:active {
+  text-shadow: 0 0 2px #fff;
+}
+.nav-item::selection {
+  background-color: transparent;
+}
+#mid-sect {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+#description {
+  font-family: "ubuntu-light";
+  color: #fff;
+  line-height: 26px;
+  margin-bottom: 20px;
+}
+#bot-sect {
+  font-family: "ubuntu-light";
+  color: #eee;
+  font-size: 12px;
+  font-style: italic;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  align-items: flex-end;
+  text-align: right;
+}
+#important-desc {
+  font-size: 26px;
+}
+#appreciate-donation {
+  font-style: italic;
+  color: yellow;
+}
+#start {
+  padding: 6px 20px;
+  width: unset;
+  text-transform: capitalize;
+  border-radius: 6px;
+}
+#start:hover {
+  color: #000;
+}
+#start:active {
+  box-shadow: 0 0 5px #fff;
+}
+#clip-wall:hover {
+  background-position: 50%;
+  filter: brightness(110%);
+}

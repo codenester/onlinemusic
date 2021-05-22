@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "ubuntu-light";
+  src: url(/assets/fonts/Ubuntu/Ubuntu-Light.ttf);
+}
+@font-face {
+  font-family: "ubuntu-regular";
+  src: url(/assets//fonts//Ubuntu/Ubuntu-Medium.ttf);
+}
+@font-face {
+  font-family: "ubuntu-bold";
+  src: url(/assets/fonts/Ubuntu/Ubuntu-Bold.ttf);
+}
+* {
+  font-family: "ubuntu-regular";
+}
