@@ -17,8 +17,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  filter: sepia(50%) brightness(20%) blur(4px);
-  transform: scale(1.05);
+  filter: sepia(70%) brightness(20%);
 }
 #layer-1,
 #layer-2 {
@@ -182,6 +181,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  padding-right: 10px;
 }
 #description {
   font-family: "ubuntu-light";
@@ -218,7 +218,56 @@
 #start:active {
   box-shadow: 0 0 5px #fff;
 }
-#clip-wall:hover {
-  background-position: 50%;
-  filter: brightness(110%);
+@media screen and (max-width: 515px) {
+  #layer-2 {
+    flex-direction: column;
+  }
+  #nav-wrap {
+    width: 100%;
+    border-radius: 0;
+    top: 0;
+  }
+  #clip-wall {
+    min-height: 400px;
+  }
+  .left-child-edge:nth-child(1) {
+    min-height: 130px;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  #site-name {
+    display: none;
+  }
+  #clip-wall {
+    filter: brightness(50%);
+  }
+  #btn-wrap {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    bottom: 50px;
+    left: 0;
+  }
+  #description {
+    display: none;
+  }
+  #start {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  #start:hover {
+    background-color: #fff;
+    color: #333;
+  }
+  #bot-sect {
+    justify-content: center;
+    padding-right: 0;
+    text-align: center;
+  }
+  #small-part {
+    min-width: 50%;
+  }
 }
