@@ -1,4 +1,3 @@
-<script src="/js/home.js" type="module"></script>
 <div id="home">
     <div id="left-part">
         <div id="left-child">
