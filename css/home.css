@@ -20,7 +20,7 @@
   filter: sepia(70%) brightness(20%);
 }
 #layer-1,
-#layer-2 {
+#home {
   display: flex;
   position: absolute;
   width: 100%;
@@ -229,6 +229,7 @@
   }
   #clip-wall {
     min-height: 400px;
+    filter: brightness(50%);
   }
   .left-child-edge:nth-child(1) {
     min-height: 130px;
@@ -237,9 +238,6 @@
   }
   #site-name {
     display: none;
-  }
-  #clip-wall {
-    filter: brightness(50%);
   }
   #btn-wrap {
     margin: 0;
@@ -269,5 +267,23 @@
   }
   #small-part {
     min-width: 50%;
+  }
+}
+@media screen and (max-height: 560px) {
+  #left-child {
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 30px;
+  }
+  #clip-wall {
+    width: 150px;
+    height: 250px;
+  }
+  #site-name {
+    display: none;
+  }
+  #banner {
+    height: 100px;
+    transform: translateY(-50%);
   }
 }

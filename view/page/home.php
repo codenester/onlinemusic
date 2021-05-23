@@ -1,58 +1,20 @@
-<?php include_once('../layout/head.php'); ?>
+<?php
+include_once('../layout/head.php');
+include_once('../../helper/state.php');
+?>
 <link rel="stylesheet" href="/css/home.css">
 <div id="container">
     <div id="background"></div>
     <div id="foreground">
         <div id="layer-1">
-            <div id="small-part">
-
-            </div>
+            <div id="small-part"> </div>
             <div id="big-part"></div>
         </div>
-        <div id="layer-2">
-            <div id="left-part">
-                <div id="left-child">
-                    <div class="left-child-edge">
-                        <div id="banner">
-                            <img id="logo" src="/assets/images/component/music_logo.png">
-                            <div id="site-name"><span class="big-letter">O</span>nline<span class="big-letter">M</span>usic </div>
-                        </div>
-                    </div>
-                    <div id="left-child-body">
-                        <div id="clip-wall"></div>
-                    </div>
-                    <div class="left-child-edge">
-                        <div id="btn-wrap">
-                            <button id="sing-up" class="btn-type1">Signup</button>
-                            <button id="login" class="btn-type1">Login</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="right-part">
-                <div id="top-sect">
-                    <div id="nav-wrap">
-                        <div class="nav-item">Donate</div>
-                        <div class="nav-item">Career</div>
-                        <div class="nav-item">About</div>
-                    </div>
-                </div>
-                <div id="mid-sect">
-                    <div id="description">
-                        <span id="important-desc">Stress? Boring?</br>
-                            Here is a place to relax!</br>
-                            Listen to the popular musics anywhere,</br> anytime for FREE.</span></br>
-                        But only if your have the internet &#129315; &#129315;</br>
-                        <span id="appreciate-donation">"We will appreciate you donation..."</span>
-                    </div>
-                    <button id="start" class="btn-type1">Listen Now</button>
-                </div>
-                <div id="bot-sect">
-
-                    All right reserved</br> https://github.com/codenester | srrthea@gmail.com
-                </div>
-            </div>
-        </div>
+        <?php
+        include_once('./main_home.php');
+        include_once('./signup.php');
+        include_once('./login.php');
+        ?>
     </div>
 </div>
 <?php include_once('../layout/foot.php'); ?>

@@ -1,4 +1,3 @@
-foot
 </body>
 
 </html>
