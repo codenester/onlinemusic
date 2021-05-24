@@ -1,5 +1,4 @@
 #signup-page {
-  opacity: 0;
   position: absolute;
   display: none;
   justify-content: center;
@@ -16,10 +15,12 @@
   padding: 8px 30px;
   background-color: teal;
   border-radius: 0 0 30px 0;
+  transform: translateX(-100%);
 }
 #s-wrap {
   display: flex;
   flex-direction: column;
+  opacity: 0;
 }
 #s-wrap div {
   display: flex;
@@ -103,7 +104,6 @@ input[type="password"] {
   opacity: 1;
 }
 #gender-wrap {
-  /* justify-content: center; */
   margin-top: 10px;
   padding: 10px 0;
   font-size: 14px;
@@ -131,7 +131,6 @@ input[type="radio"] {
   cursor: pointer;
 }
 #term-wrap {
-  /* justify-content: center; */
   margin-top: 10px;
   display: flex !important;
   flex-direction: row !important;
@@ -170,4 +169,22 @@ input[type="checkbox"] {
   text-shadow: 0 0 1px #fff;
   background-color: darkred;
   border-color: darkred;
+}
+@media screen and (max-width: 510px) {
+  #s-top {
+    flex-direction: column !important;
+  }
+}
+@media screen and (max-width: 410px) and (max-height: 690px) {
+  #signup-title {
+    display: none;
+  }
+}
+@media screen and (max-height: 450px) {
+  #avatar-wrap {
+    position: absolute;
+    top: 10px;
+    left: calc(100% - 10px);
+    transform: translateX(-100%);
+  }
 }

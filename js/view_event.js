@@ -5,105 +5,113 @@ export default class ViewEvent {
     this.dom = new DomElement();
     this.helperEvent = new HelperEvent();
   }
-  get whenHistoryPop() {
-    window.onpopstate = async () => {
-      if (!window.history.state) {
-        this.dom.page.signUp.style.transition = "0.4s";
-        this.dom.page.signUp.style.opacity = 0;
-        this.dom.page.signUp.style.display = "none";
-        await this.helperEvent.timeOut;
+  get takeTransition() {
+    this.dom.page.signUp.style.transition = "0.4s";
+    this.dom.page.home.style.transition = "0.4s";
+    this.dom.text.signUpTitle.style.transition = "0.4s";
+    this.dom.frame.signUpWrap.style.transition = "0.4s";
+    this.dom.frame.btnWrap.style.transition = "0.4s";
+    this.dom.frame.navWrap.style.transition = "0.4s";
+    this.dom.frame.topSect.style.transition = "0.4s";
+    this.dom.frame.midSect.style.transition = "0.4s";
+    this.dom.frame.botSect.style.transition = "0.4s";
+    this.dom.frame.smallPart.style.transition = "0.4s";
+    this.dom.frame.leftPart.style.transition = "0.4s";
+  }
+  get leaveTransition() {
+    this.dom.page.signUp.style.transition = "0s";
+    this.dom.page.home.style.transition = "0s";
+    this.dom.text.signUpTitle.style.transition = "0s";
+    this.dom.frame.signUpWrap.style.transition = "0s";
+    this.dom.frame.btnWrap.style.transition = "0s";
+    this.dom.frame.navWrap.style.transition = "0s";
+    this.dom.frame.topSect.style.transition = "0s";
+    this.dom.frame.midSect.style.transition = "0s";
+    this.dom.frame.botSect.style.transition = "0s";
+    this.dom.frame.smallPart.style.transition = "0s";
+  }
+  get enterHome() {
+    return {
+      step1: () => {
         this.dom.page.home.style.display = "flex";
-        await this.helperEvent.timeOut;
-        this.homeIn;
-        this.dom.frame.smallPart.style.transition = "0.4s";
-        this.dom.frame.smallPart.style.width = "25%";
-        this.dom.frame.smallPart.style.minWidth = "250px";
-      } else {
-        this.dom.frame.smallPart.style.transition = "0.4s";
-        this.dom.frame.smallPart.style.width = 0;
-        this.dom.frame.smallPart.style.minWidth = 0;
-        await this.helperEvent.timeOut;
-        this.homeOut;
-        await this.helperEvent.timeOut;
-        this.dom.page.home.style.display = "none";
-        this.dom.page.signUp.style.display = "flex";
-        this.dom.page.signUp.style.transition = "0.4s";
-        this.dom.page.signUp.style.opacity = 1;
-      }
+      },
+      step2: () => {
+        this.dom.frame.smallPart.style.transform = "translateX(0)";
+        this.dom.frame.navWrap.style.transform = "translateY(0)";
+        this.dom.frame.btnWrap.style.transform = "translateY(0)";
+        this.dom.frame.botSect.style.transform = "translateY(0)";
+        this.dom.frame.leftPart.style.transform = "translateX(0)";
+        this.dom.frame.midSect.style.transform = "translateX(0)";
+      },
     };
   }
-  get homeInState() {
-    this.dom.page.home.style.display = "flex";
-    this.dom.page.signUp.style.transition = "0s";
-    this.dom.page.signUp.style.display = "none";
-    this.dom.page.signUp.style.opacity = 0;
-    this.dom.frame.smallPart.style.transition = "0s";
-    this.dom.frame.smallPart.style.width = "25%";
-    this.dom.frame.smallPart.style.minWidth = "250px";
-    this.dom.frame.leftPart.style.transition = "0s";
-    this.dom.frame.rightPart.style.transition = "0s";
-    this.dom.frame.topSect.style.transition = "0s";
-    this.dom.frame.midSect.style.transition = "0s";
-    this.dom.frame.botSect.style.transition = "0s";
-    this.dom.frame.navWrap.style.transition = "0s";
-    this.dom.frame.btnWrap.style.transition = "0s";
-    this.dom.frame.leftPart.style.marginLeft = "0";
-    this.dom.frame.rightPart.style.marginLeft = "0";
-    this.dom.frame.navWrap.style.transform = "translateY(0)";
-    this.dom.frame.btnWrap.style.transform = "translateY(0)";
-    this.dom.frame.botSect.style.transform = "translateY(0)";
-    this.dom.frame.midSect.style.transform = "translateX(0)";
+  get leaveHome() {
+    return {
+      step1: () => {
+        this.dom.frame.smallPart.style.transform = "translateX(-100%)";
+      },
+      step2: () => {
+        this.dom.frame.navWrap.style.transform = "translateY(-100%)";
+        this.dom.frame.btnWrap.style.transform = "translateY(200%)";
+        this.dom.frame.leftPart.style.transform = "translateX(-100%)";
+        this.dom.frame.botSect.style.transform = "translateY(100%)";
+        this.dom.frame.midSect.style.transform = "translateX(100%)";
+      },
+      step3: () => {
+        this.dom.page.home.style.display = "none";
+      },
+    };
   }
-  get homeOutState() {
-    this.dom.page.signUp.style.transition = "0s";
-    this.dom.page.signUp.style.display = "flex";
-    this.dom.page.signUp.style.opacity = 1;
-    this.dom.page.home.style.display = "none";
-    this.dom.frame.smallPart.style.transition = "0s";
-    this.dom.frame.smallPart.style.width = 0;
-    this.dom.frame.smallPart.style.minWidth = 0;
-    this.dom.frame.leftPart.style.transition = "0s";
-    this.dom.frame.rightPart.style.transition = "0s";
-    this.dom.frame.topSect.style.transition = "0s";
-    this.dom.frame.midSect.style.transition = "0s";
-    this.dom.frame.botSect.style.transition = "0s";
-    this.dom.frame.navWrap.style.transition = "0s";
-    this.dom.frame.btnWrap.style.transition = "0s";
-    this.dom.frame.leftPart.style.marginLeft = "-100%";
-    this.dom.frame.rightPart.style.marginLeft = "100%";
-    this.dom.frame.navWrap.style.transform = "translateY(-100%)";
-    this.dom.frame.btnWrap.style.transform = "translateY(200%)";
-    this.dom.frame.botSect.style.transform = "translateY(100%)";
-    this.dom.frame.midSect.style.transform = "translateX(100%)";
+  get enterSignup() {
+    return {
+      step1: () => {
+        this.dom.page.signUp.style.display = "flex";
+      },
+      step2: () => {
+        this.dom.frame.signUpWrap.style.opacity = 1;
+        this.dom.text.signUpTitle.style.transform = "translateX(0)";
+      },
+    };
   }
-  get homeIn() {
-    this.dom.frame.leftPart.style.transition = "0.4s";
-    this.dom.frame.rightPart.style.transition = "0.4s";
-    this.dom.frame.topSect.style.transition = "0.4s";
-    this.dom.frame.midSect.style.transition = "0.4s";
-    this.dom.frame.botSect.style.transition = "0.4s";
-    this.dom.frame.navWrap.style.transition = "0.4s";
-    this.dom.frame.btnWrap.style.transition = "0.4s";
-    this.dom.frame.leftPart.style.marginLeft = "0";
-    this.dom.frame.rightPart.style.marginLeft = "0";
-    this.dom.frame.navWrap.style.transform = "translateY(0)";
-    this.dom.frame.btnWrap.style.transform = "translateY(0)";
-    this.dom.frame.botSect.style.transform = "translateY(0)";
-    this.dom.frame.midSect.style.transform = "translateX(0)";
+  get leaveSignup() {
+    return {
+      step1: () => {
+        this.dom.frame.signUpWrap.style.opacity = 0;
+        this.dom.text.signUpTitle.style.transform = "translateX(-100%)";
+      },
+      step2: () => {
+        this.dom.page.signUp.style.display = "none";
+      },
+    };
   }
-  get homeOut() {
-    this.dom.frame.leftPart.style.transition = "0.8s";
-    this.dom.frame.rightPart.style.transition = "0.4s";
-    this.dom.frame.topSect.style.transition = "0.4s";
-    this.dom.frame.midSect.style.transition = "0.4s";
-    this.dom.frame.botSect.style.transition = "0.4s";
-    this.dom.frame.navWrap.style.transition = "0.4s";
-    this.dom.frame.btnWrap.style.transition = "0.4s";
-    this.dom.frame.leftPart.style.marginLeft = "-100%";
-    this.dom.frame.rightPart.style.marginLeft = "100%";
-    this.dom.frame.navWrap.style.transform = "translateY(-100%)";
-    this.dom.frame.btnWrap.style.transform = "translateY(200%)";
-    this.dom.frame.botSect.style.transform = "translateY(100%)";
-    this.dom.frame.midSect.style.transform = "translateX(100%)";
+  get animateToHome() {
+    return (async () => {
+      this.enterHome.step1();
+      await this.helperEvent.timeOut;
+      this.enterHome.step2();
+    })();
+  }
+  get animateFromHome() {
+    return (async () => {
+      this.leaveHome.step1();
+      await this.helperEvent.timeOut;
+      this.leaveHome.step2();
+      await this.helperEvent.timeOut;
+      this.leaveHome.step3();
+    })();
+  }
+  get animateToSignup() {
+    return (async () => {
+      this.enterSignup.step1();
+      await this.helperEvent.timeOut;
+      this.enterSignup.step2();
+    })();
+  }
+  get animateFromSignup() {
+    return (async () => {
+      this.leaveSignup.step1();
+      await this.helperEvent.timeOut;
+      this.leaveSignup.step2();
+    })();
   }
 }

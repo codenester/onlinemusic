@@ -48,10 +48,10 @@
                     <label id='gender-label'>Gender</label>
                     <div id="gender-val">
                         <div class="gender-val-wrap">
-                            <input type="radio" name='gender' id="male" value='male'><span>Male</span>
+                            <input type="radio" name='gender' id="male" value='male' checked><span id="text-male">Male</span>
                         </div>
                         <div class="gender-val-wrap">
-                            <input type="radio" name='gender' id="female" value='female'><span>Female</span>
+                            <input type="radio" name='gender' id="female" value='female'><span id="text-female">Female</span>
                         </div>
                     </div>
                 </div>
