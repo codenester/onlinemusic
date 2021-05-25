@@ -1,15 +1,25 @@
 export default class DomString {
   get className() {
-    return {};
+    return {
+      bigLetter: "big-letter",
+      smallLetter: "small-letter",
+      q: {
+        bigLetter: ".big-letter",
+        smallLetter: ".small-letter",
+      },
+    };
   }
   get id() {
     return {
       acceptTerm: "term",
       avatar: "avatar-wrap",
       avatarVal: "avatar-img",
+      banner: "banner",
       birthDate: "birth-date",
       botSect: "bot-sect",
+      btnLogin: "btn-login",
       btnWrap: "btn-wrap",
+      cancel: "cancel",
       confirmPassword: "confirm-password",
       confirmPasswordValidate: "confirm-password-validate",
       discard: "discard",
@@ -18,6 +28,11 @@ export default class DomString {
       home: "home",
       leftPart: "left-part",
       login: "login",
+      loginPage: "login-page",
+      loginTitle: "login-title",
+      loginValidate: "login-validator",
+      loginWrap: "login-wrap",
+      logo: "logo",
       mail: "mail",
       mailValidate: "mail-validate",
       male: "male",
@@ -33,7 +48,9 @@ export default class DomString {
       signUpPage: "signup-page",
       signUpTitle: "signup-title",
       signUpWrap: "s-wrap",
+      siteName: "site-name",
       smallPart: "small-part",
+      start: "start",
       textFemale: "text-female",
       textMale: "text-male",
       topSect: "top-sect",
@@ -43,9 +60,12 @@ export default class DomString {
       q: {
         acceptTerm: "#term",
         avatar: "#avatar-wrap",
+        banner: "#banner",
         birthDate: "#birth-date",
         botSect: "#bot-sect",
+        btnLogin: "#btn-login",
         btnWrap: "#btn-wrap",
+        cancel: "#cancel",
         confirmPassword: "#confirm-password",
         confirmPasswordValidate: "#confirm-password-validate",
         discard: "#discard",
@@ -54,6 +74,11 @@ export default class DomString {
         home: "#home",
         leftPart: "#left-part",
         login: "#login",
+        loginPage: "#login-page",
+        loginTitle: "#login-title",
+        loginValidate: "#login-validator",
+        loginWrap: "#login-wrap",
+        logo: "#logo",
         mail: "#mail",
         mailValidate: "#mail-validate",
         male: "#male",
@@ -69,6 +94,8 @@ export default class DomString {
         signUpPage: "#signup-page",
         signUpTitle: "#signup-title",
         signUpWrap: "#s-wrap",
+        siteName: "site-name",
+        start: "#start",
         smallPart: "#small-part",
         textFemale: "#text-female",
         textMale: "#text-male",

@@ -22,6 +22,7 @@ export default class Controller {
       mail: "",
       phone: "",
     };
+    this.loginValidation = "";
     this.datePicker = MCDatepicker.create({
       el: "#birth-date",
       minDate: new Date(1960, 1, 1),
@@ -32,6 +33,8 @@ export default class Controller {
     //global
     this.viewEvent.leaveTransition;
     if (window.history.state) {
+      for (var step in this.viewEvent.leaveHome)
+        this.viewEvent.leaveHome[step]();
       if (window.history.state.page == "signup") {
         if (!window.history.state.user) {
           this.dataEvent.writeSignUpState({
@@ -44,10 +47,12 @@ export default class Controller {
           });
         }
         this.user = this.dataEvent.readSignUpState;
-        for (var step in this.viewEvent.leaveHome)
-          this.viewEvent.leaveHome[step]();
         for (var step in this.viewEvent.enterSignup)
           this.viewEvent.enterSignup[step]();
+      } else if (window.history.state.page == "login") {
+        for (var step in this.viewEvent.enterLogin) {
+          this.viewEvent.enterLogin[step]();
+        }
       }
     } else {
       for (var step in this.viewEvent.leaveSignup)
@@ -56,28 +61,63 @@ export default class Controller {
         this.viewEvent.enterHome[step]();
     }
     window.onpopstate = async () => {
-      console.log(window.history.state);
+      this.viewEvent.takeTransition;
       if (window.history.state) {
-        this.viewEvent.takeTransition;
         this.viewEvent.animateFromHome;
         await this.helperEvent.timeOut;
-        this.viewEvent.animateToSignup;
+        if (window.history.state.page == "signup") {
+          this.viewEvent.animateToSignup;
+        } else if (window.history.state.page == "login") {
+          this.viewEvent.animateToLogin;
+        }
       } else {
-        this.viewEvent.takeTransition;
         this.viewEvent.animateFromSignup;
+        this.viewEvent.animateFromLogin;
         await this.helperEvent.timeOut;
         this.viewEvent.animateToHome;
       }
     };
 
     //home page
-    this.dom.btn.login.onclick = async () => {};
+    this.dom.btn.login.onclick = async () => {
+      this.viewEvent.takeTransition;
+      this.viewEvent.animateFromHome;
+      await this.helperEvent.timeOut;
+      this.viewEvent.animateToLogin;
+      window.history.pushState({ page: "login" }, "login page");
+    };
     this.dom.btn.signup.onclick = async () => {
       this.viewEvent.takeTransition;
       this.viewEvent.animateFromHome;
       await this.helperEvent.timeOut;
       this.viewEvent.animateToSignup;
       window.history.pushState({ page: "signup" }, "signup page");
+    };
+    this.dom.btn.start.onclick = () => {
+      this.viewEvent.takeTransition;
+      this.dom.frame.smallPart.style.minWidth = "100%";
+      this.dom.frame.smallPart.style.height = "40px";
+      this.dom.text.bigLetters.forEach((v) => {
+        v.style.fontFamily = "ubuntu-light";
+        v.style.fontSize = "14px";
+      });
+      this.dom.text.smallLetters.forEach((v) => {
+        v.style.fontFamily = "ubuntu-light";
+        v.style.fontSize = "14px";
+      });
+      this.dom.image.logo.style.width = "60px";
+      this.dom.image.logo.style.height = "60px";
+      let left = this.dom.frame.banner.getBoundingClientRect().left;
+      let height = this.dom.frame.banner.getBoundingClientRect().height;
+      this.dom.frame.banner.style.position = "absolute";
+      this.dom.frame.banner.style.height = height + "px";
+      this.dom.frame.banner.style.left = left + "px";
+      this.dom.frame.navWrap.style.backgroundColor = "transparent";
+      this.dom.frame.navWrap.style.height = "40px";
+      setTimeout(() => {
+        this.dom.frame.banner.style.height = "60px";
+        this.dom.frame.banner.style.left = "10px";
+      }, 100);
     };
 
     //signup page
@@ -219,6 +259,18 @@ export default class Controller {
         } else {
         }
       }
+    };
+
+    //login page
+    this.dom.btn.cancel.onclick = async () => {
+      this.viewEvent.takeTransition;
+      this.viewEvent.animateFromLogin;
+      await this.helperEvent.timeOut;
+      this.viewEvent.animateToHome;
+      window.history.back();
+    };
+    this.dom.btn.submitLogin.onclick = () => {
+      this.dom.text.loginValidate.innerText = "Incorrect username or password!";
     };
   }
 }

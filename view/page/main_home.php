@@ -4,7 +4,10 @@
             <div class="left-child-edge">
                 <div id="banner">
                     <img id="logo" src="/assets/images/component/music_logo.png">
-                    <div id="site-name"><span class="big-letter">O</span>nline<span class="big-letter">M</span>usic </div>
+                    <div id="site-name">
+                        <span class="big-letter">O</span><span class="small-letter">nline</span>
+                        <span class="big-letter">M</span><span class="small-letter">usic</span>
+                    </div>
                 </div>
             </div>
             <div id="left-child-body">
