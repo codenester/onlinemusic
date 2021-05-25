@@ -13,8 +13,14 @@ export default class DomElement {
     return {
       discard: document.getElementById(this.dom.id.discard),
       login: document.getElementById(this.dom.id.login),
+      register: document.getElementById(this.dom.id.register),
       signup: document.getElementById(this.dom.id.signUp),
       upload: document.getElementById(this.dom.id.upload),
+    };
+  }
+  get checkBox() {
+    return {
+      acceptTerm: document.getElementById(this.dom.id.acceptTerm),
     };
   }
 
@@ -34,6 +40,7 @@ export default class DomElement {
   get image() {
     return {
       avatar: document.getElementById(this.dom.id.avatar),
+      avatarVal: document.getElementById(this.dom.id.avatarVal),
     };
   }
   get page() {
@@ -44,21 +51,32 @@ export default class DomElement {
   }
   get radio() {
     return {
-      male: document.getElementById(this.dom.id.male),
       female: document.getElementById(this.dom.id.female),
+      male: document.getElementById(this.dom.id.male),
     };
   }
   get text() {
     return {
+      confirmPasswordValidate: document.getElementById(
+        this.dom.id.confirmPasswordValidate
+      ),
       female: document.getElementById(this.dom.id.textFemale),
+      mailValidate: document.getElementById(this.dom.id.mailValidate),
       male: document.getElementById(this.dom.id.textMale),
+      passwordValidate: document.getElementById(this.dom.id.passwordValidate),
+      phoneValidate: document.getElementById(this.dom.id.phoneValidate),
       signUpTitle: document.getElementById(this.dom.id.signUpTitle),
+      usernameValidate: document.getElementById(this.dom.id.usernameValidate),
     };
   }
   get textBox() {
     return {
       birthDate: document.getElementById(this.dom.id.birthDate),
-      datePicker: MCDatepicker.create({ el: this.dom.id.q.birthDate }),
+      confirmPassword: document.getElementById(this.dom.id.confirmPassword),
+      mail: document.getElementById(this.dom.id.mail),
+      password: document.getElementById(this.dom.id.password),
+      phone: document.getElementById(this.dom.id.phone),
+      username: document.getElementById(this.dom.id.username),
     };
   }
 }
