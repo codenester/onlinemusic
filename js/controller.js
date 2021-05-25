@@ -93,31 +93,11 @@ export default class Controller {
       this.viewEvent.animateToSignup;
       window.history.pushState({ page: "signup" }, "signup page");
     };
-    this.dom.btn.start.onclick = () => {
+    this.dom.btn.start.onclick = async () => {
       this.viewEvent.takeTransition;
-      this.dom.frame.smallPart.style.minWidth = "100%";
-      this.dom.frame.smallPart.style.height = "40px";
-      this.dom.text.bigLetters.forEach((v) => {
-        v.style.fontFamily = "ubuntu-light";
-        v.style.fontSize = "14px";
-      });
-      this.dom.text.smallLetters.forEach((v) => {
-        v.style.fontFamily = "ubuntu-light";
-        v.style.fontSize = "14px";
-      });
-      this.dom.image.logo.style.width = "60px";
-      this.dom.image.logo.style.height = "60px";
-      let left = this.dom.frame.banner.getBoundingClientRect().left;
-      let height = this.dom.frame.banner.getBoundingClientRect().height;
-      this.dom.frame.banner.style.position = "absolute";
-      this.dom.frame.banner.style.height = height + "px";
-      this.dom.frame.banner.style.left = left + "px";
-      this.dom.frame.navWrap.style.backgroundColor = "transparent";
-      this.dom.frame.navWrap.style.height = "40px";
-      setTimeout(() => {
-        this.dom.frame.banner.style.height = "60px";
-        this.dom.frame.banner.style.left = "10px";
-      }, 100);
+      this.viewEvent.animateFromHome;
+      await this.helperEvent.timeOut;
+      this.viewEvent.animateToMusic;
     };
 
     //signup page
@@ -271,6 +251,34 @@ export default class Controller {
     };
     this.dom.btn.submitLogin.onclick = () => {
       this.dom.text.loginValidate.innerText = "Incorrect username or password!";
+    };
+    //music-page
+    let openMenu = false;
+    this.dom.btn.menu.onclick = () => {
+      if (openMenu) {
+        this.dom.frame.navBar.style.transform =
+          "translateX(calc(-100% + 110px))";
+        this.dom.util.bars[0].style.transform = "translateY(8px) rotate(0)";
+        this.dom.util.bars[1].style.transform = "rotate(0)";
+        this.dom.util.bars[2].style.transform = "translateY(-8px) rotate(0)";
+        setTimeout(() => {
+          this.dom.util.bars[0].style.transform = "translateY(0)";
+          this.dom.util.bars[2].style.transform = "translateY(0)";
+          openMenu = false;
+        }, 200);
+      } else {
+        this.dom.frame.navBar.style.transform = "translateX(0)";
+        this.dom.util.bars[0].style.transform = "translateY(8px)";
+        this.dom.util.bars[2].style.transform = "translateY(-8px)";
+        setTimeout(() => {
+          this.dom.util.bars[0].style.transform =
+            "translateY(8px) rotate(45deg)";
+          this.dom.util.bars[1].style.transform = "rotate(45deg)";
+          this.dom.util.bars[2].style.transform =
+            "translateY(-8px) rotate(-45deg)";
+          openMenu = true;
+        }, 200);
+      }
     };
   }
 }

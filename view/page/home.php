@@ -14,6 +14,7 @@ include_once('../../helper/state.php');
         include_once('./main_home.php');
         include_once('./signup.php');
         include_once('./login.php');
+        include_once('./music.php')
         ?>
     </div>
 </div>

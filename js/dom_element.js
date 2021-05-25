@@ -14,6 +14,7 @@ export default class DomElement {
       cancel: document.getElementById(this.dom.id.cancel),
       discard: document.getElementById(this.dom.id.discard),
       login: document.getElementById(this.dom.id.login),
+      menu: document.getElementById(this.dom.id.menu),
       register: document.getElementById(this.dom.id.register),
       signup: document.getElementById(this.dom.id.signUp),
       start: document.getElementById(this.dom.id.start),
@@ -35,6 +36,7 @@ export default class DomElement {
       leftPart: document.getElementById(this.dom.id.leftPart),
       loginWrap: document.getElementById(this.dom.id.loginWrap),
       midSect: document.getElementById(this.dom.id.midSect),
+      navBar: document.getElementById(this.dom.id.navBar),
       navWrap: document.getElementById(this.dom.id.navWrap),
       rightPart: document.getElementById(this.dom.id.rightPart),
       signUpWrap: document.getElementById(this.dom.id.signUpWrap),
@@ -54,6 +56,7 @@ export default class DomElement {
       home: document.getElementById(this.dom.id.home),
       login: document.getElementById(this.dom.id.loginPage),
       signUp: document.getElementById(this.dom.id.signUpPage),
+      music: document.getElementById(this.dom.id.musicPage),
     };
   }
   get radio() {
@@ -93,6 +96,11 @@ export default class DomElement {
       password: document.getElementById(this.dom.id.password),
       phone: document.getElementById(this.dom.id.phone),
       username: document.getElementById(this.dom.id.username),
+    };
+  }
+  get util() {
+    return {
+      bars: Array.from(document.getElementsByClassName(this.dom.className.bar)),
     };
   }
 }

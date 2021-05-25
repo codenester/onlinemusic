@@ -8,6 +8,7 @@ export default class ViewEvent {
   get takeTransition() {
     this.dom.text.bigLetters.forEach((v) => (v.style.transition = "0.4s"));
     this.dom.text.smallLetters.forEach((v) => (v.style.transition = "0.4s"));
+    this.dom.page.music.style.transition = "0.4s";
     this.dom.frame.banner.style.transition = "0.4s";
     this.dom.image.logo.style.transition = "0.4s";
     this.dom.page.signUp.style.transition = "0.4s";
@@ -28,6 +29,7 @@ export default class ViewEvent {
   get leaveTransition() {
     this.dom.text.bigLetters.forEach((v) => (v.style.transition = "0s"));
     this.dom.text.smallLetters.forEach((v) => (v.style.transition = "0s"));
+    this.dom.page.music.style.transition = "0s";
     this.dom.frame.banner.style.transition = "0s";
     this.dom.image.logo.style.transition = "0s";
     this.dom.page.signUp.style.transition = "0s";
@@ -120,6 +122,13 @@ export default class ViewEvent {
       },
     };
   }
+  get enterMusic() {
+    return {
+      step1: () => {
+        this.dom.page.music.style.display = "flex";
+      },
+    };
+  }
   get animateToHome() {
     return (async () => {
       this.enterHome.step1();
@@ -162,6 +171,12 @@ export default class ViewEvent {
       this.leaveLogin.step1();
       await this.helperEvent.timeOut;
       this.leaveLogin.step2();
+    })();
+  }
+  get animateToMusic() {
+    return (async () => {
+      this.enterMusic.step1();
+      await this.helperEvent.timeOut;
     })();
   }
 }

@@ -1,4 +1,3 @@
-<?php include_once('../layout/head.php'); ?>
 <link rel="stylesheet" href="/css/login.css">
 <div id="login-page">
     <div id="login-title">User Login</div>
@@ -18,4 +17,3 @@
         </div>
     </div>
 </div>
-<?php include_once('../layout/foot.php'); ?>

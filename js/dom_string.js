@@ -1,9 +1,11 @@
 export default class DomString {
   get className() {
     return {
+      bar: "bar",
       bigLetter: "big-letter",
       smallLetter: "small-letter",
       q: {
+        bar: ".bar",
         bigLetter: ".big-letter",
         smallLetter: ".small-letter",
       },
@@ -36,7 +38,10 @@ export default class DomString {
       mail: "mail",
       mailValidate: "mail-validate",
       male: "male",
+      menu: "bar-wrap",
       midSect: "mid-sect",
+      musicPage: "music-page",
+      navBar: "nav-bar",
       navWrap: "nav-wrap",
       password: "password",
       passwordValidate: "password-validate",
@@ -82,7 +87,10 @@ export default class DomString {
         mail: "#mail",
         mailValidate: "#mail-validate",
         male: "#male",
+        menu: "#bar-wrap",
         midSect: "#mid-sect",
+        musicPage: "#music-page",
+        navBar: "#nav-bar",
         navWrap: "#nav-wrap",
         password: "#password",
         passwordValidate: "#password-validate",

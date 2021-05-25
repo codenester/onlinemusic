@@ -1,0 +1,179 @@
+#music-page {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+#top-bar {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  justify-content: space-between;
+}
+#nav-bar {
+  max-width: 600px;
+  background-color: teal;
+  display: flex;
+  border-radius: 0 20px 20px 0;
+  flex: 1;
+  align-items: center;
+  transform: translateX(calc(-100% + 110px));
+  transition: 0.4s;
+}
+.m-nav-item {
+  font-family: "ubuntu-light";
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  color: #ddd;
+  cursor: pointer;
+}
+#logo-wrap {
+  margin-top: 2px;
+  width: 40px;
+  height: 40px;
+  background-image: url(/assets/images/component/music_logo.png);
+  background-size: 50px;
+  background-position: 50%;
+  cursor: pointer;
+}
+#menu {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+#bar-wrap {
+  cursor: pointer;
+  width: 24px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.bar {
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  transition: 0.2s;
+}
+#search-wrap {
+  max-width: 200px;
+  display: flex;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+#search {
+  max-width: 160px;
+  color: #222;
+  border: none;
+  padding-left: 10px;
+}
+#search-btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+#m-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#m-child {
+  position: absolute;
+  width: 510px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#list-wrap {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 400px;
+  height: 100%;
+  left: 100%;
+  transform: translateX(-100%);
+}
+#cd-wrap {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-image: url(/assets/images/audio/timetorise.jpg);
+  background-size: cover;
+  background-position: 50%;
+  border: solid 3px rgba(0, 0, 0, 0.7);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: playing 10s linear infinite;
+}
+#center {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 50%;
+  border: solid 4px rgba(255, 255, 255, 0.9);
+}
+#music-indicator {
+  width: 4px;
+  height: 50%;
+  position: absolute;
+  left: calc(100% - 10px);
+  top: 50%;
+  transform: translate(-100%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.indicator {
+  width: 4px;
+  height: 100px;
+  background-color: rgb(0, 46, 46);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.active {
+  background-color: rgb(2, 241, 241);
+}
+#current-play {
+  position: absolute;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  top: 100%;
+  transform: translateY(-100%);
+  display: flex;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+}
+.playing-wrap {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  animation: forward 10s linear infinite;
+}
+.playing-song {
+  font-family: "ubuntu-light";
+  margin: 0 40px;
+}
+@keyframes forward {
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes playing {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
