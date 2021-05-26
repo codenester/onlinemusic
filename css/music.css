@@ -23,7 +23,7 @@
   transition: 0.4s;
 }
 .m-nav-item {
-  font-family: "ubuntu-light";
+  font-family: var(--font-light);
   flex: 1;
   display: flex;
   justify-content: center;
@@ -166,7 +166,7 @@
   animation: forward 20s linear infinite;
 }
 .playing-song {
-  font-family: "ubuntu-light";
+  font-family: var(--font-light);
   margin: 0 40px;
 }
 #list-container {
@@ -198,12 +198,12 @@
   width: 100%;
   text-align: left;
   margin: 5px 0;
-  font-family: "ubuntu-light";
+  font-family: var(--font-light);
   cursor: pointer;
   transition: 0.2s;
 }
 .current {
-  font-family: "ubuntu-regular";
+  font-family: var(--font-regular);
   color: rgb(1, 49, 49);
   font-weight: 900;
 }

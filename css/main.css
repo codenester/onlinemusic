@@ -10,6 +10,18 @@
   font-family: "ubuntu-bold";
   src: url(/assets/fonts/Ubuntu/Ubuntu-Bold.ttf);
 }
+@font-face {
+  font-family: "content-light";
+  src: url(/assets/fonts/Content/Content-Regular.ttf);
+}
+@font-face {
+  font-family: "content-regular";
+  src: url(/assets/fonts/Content/Content-Bold.ttf);
+}
+:root {
+  --font-light: "ubuntu-light", "content-light";
+  --font-regular: "ubuntu-regular", "content-regular";
+}
 * {
-  font-family: "ubuntu-regular";
+  font-family: var(--font-regular);
 }
