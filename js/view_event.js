@@ -8,6 +8,11 @@ export default class ViewEvent {
   get takeTransition() {
     this.dom.text.bigLetters.forEach((v) => (v.style.transition = "0.4s"));
     this.dom.text.smallLetters.forEach((v) => (v.style.transition = "0.4s"));
+    this.dom.util.currentPlay.style.transition = "0.4s";
+    this.dom.frame.navBar.style.transition = "0.4s";
+    this.dom.image.cd.style.transition = "0.4s";
+    this.dom.frame.listWrap.style.transition = "0.4s";
+    this.dom.util.search.style.transition = "0.4s";
     this.dom.page.music.style.transition = "0.4s";
     this.dom.frame.banner.style.transition = "0.4s";
     this.dom.image.logo.style.transition = "0.4s";
@@ -29,6 +34,11 @@ export default class ViewEvent {
   get leaveTransition() {
     this.dom.text.bigLetters.forEach((v) => (v.style.transition = "0s"));
     this.dom.text.smallLetters.forEach((v) => (v.style.transition = "0s"));
+    this.dom.frame.navBar.style.transition = "0s";
+    this.dom.util.currentPlay.style.transition = "0s";
+    this.dom.image.cd.style.transition = "0s";
+    this.dom.frame.listWrap.style.transition = "0s";
+    this.dom.util.search.style.transition = "0s";
     this.dom.page.music.style.transition = "0s";
     this.dom.frame.banner.style.transition = "0s";
     this.dom.image.logo.style.transition = "0s";
@@ -126,57 +136,124 @@ export default class ViewEvent {
     return {
       step1: () => {
         this.dom.page.music.style.display = "flex";
+        this.dom.frame.topBar.style.display = "flex";
+      },
+      step2: () => {
+        this.dom.util.search.style.maxWidth = "200px";
+        this.dom.frame.navBar.style.transform =
+          "translate(calc(-100% + 110px))";
+        this.dom.frame.listWrap.style.height = "100%";
+      },
+      step3: () => {
+        this.dom.image.cd.style.opacity = 1;
+        this.dom.util.currentPlay.style.transform =
+          "translateY(-100%) translateX(0)";
+      },
+    };
+  }
+  get leaveMusic() {
+    return {
+      step1: () => {
+        this.dom.image.cd.style.opacity = 0;
+        this.dom.util.currentPlay.style.transform = "translate(100% -100%)";
+        this.dom.frame.navBar.style.transform = "-100%";
+      },
+      step2: () => {
+        this.dom.util.search.style.maxWidth = 0;
+        this.dom.frame.listWrap.style.height = 0;
+      },
+      step3: () => {
+        this.dom.page.music.style.display = "none";
+        this.dom.frame.topBar.style.display = "none";
       },
     };
   }
   get animateToHome() {
     return (async () => {
       this.enterHome.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.enterHome.step2();
     })();
   }
   get animateFromHome() {
     return (async () => {
       this.leaveHome.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.leaveHome.step2();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.leaveHome.step3();
     })();
   }
   get animateToSignup() {
     return (async () => {
       this.enterSignup.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.enterSignup.step2();
     })();
   }
   get animateFromSignup() {
     return (async () => {
       this.leaveSignup.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.leaveSignup.step2();
     })();
   }
   get animateToLogin() {
     return (async () => {
       this.enterLogin.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.enterLogin.step2();
     })();
   }
   get animateFromLogin() {
     return (async () => {
       this.leaveLogin.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.leaveLogin.step2();
     })();
   }
   get animateToMusic() {
     return (async () => {
       this.enterMusic.step1();
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
+      this.enterMusic.step2();
+      await this.helperEvent.timeOut();
+      this.enterMusic.step3();
+    })();
+  }
+  get animateFromMusic() {
+    return (async () => {
+      this.leaveMusic.step1();
+      await this.helperEvent.timeOut();
+      this.leaveMusic.step2();
+      await this.helperEvent.timeOut();
+      this.leaveMusic.step3();
+    })();
+  }
+  get openMenu() {
+    return (async () => {
+      this.dom.frame.navBar.style.transition = "0.25s";
+      this.dom.frame.navBar.style.transform = "translateX(0)";
+      this.dom.util.bars[0].style.transform = "translateY(8px)";
+      this.dom.util.bars[2].style.transform = "translateY(-8px)";
+      await this.helperEvent.timeOut(200);
+      this.dom.util.bars[0].style.transform = "translateY(8px) rotate(45deg)";
+      this.dom.util.bars[1].style.transform = "rotate(45deg)";
+      this.dom.util.bars[2].style.transform = "translateY(-8px) rotate(-45deg)";
+      return true;
+    })();
+  }
+  get closeMenu() {
+    return (async () => {
+      this.dom.frame.navBar.style.transition = "0.25s";
+      this.dom.frame.navBar.style.transform = "translateX(calc(-100% + 110px))";
+      this.dom.util.bars[0].style.transform = "translateY(8px) rotate(0)";
+      this.dom.util.bars[1].style.transform = "rotate(0)";
+      this.dom.util.bars[2].style.transform = "translateY(-8px) rotate(0)";
+      await this.helperEvent.timeOut(200);
+      this.dom.util.bars[0].style.transform = "translateY(0)";
+      this.dom.util.bars[2].style.transform = "translateY(0)";
+      return false;
     })();
   }
 }

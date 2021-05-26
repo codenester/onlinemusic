@@ -6,6 +6,7 @@ export default class DomElement {
   get file() {
     return {
       avatarImage: document.getElementById(this.dom.id.file),
+      audioSource: document.getElementById(this.dom.id.musicSource),
     };
   }
 
@@ -15,6 +16,7 @@ export default class DomElement {
       discard: document.getElementById(this.dom.id.discard),
       login: document.getElementById(this.dom.id.login),
       menu: document.getElementById(this.dom.id.menu),
+      play: document.getElementById(this.dom.id.playBtn),
       register: document.getElementById(this.dom.id.register),
       signup: document.getElementById(this.dom.id.signUp),
       start: document.getElementById(this.dom.id.start),
@@ -34,6 +36,7 @@ export default class DomElement {
       botSect: document.getElementById(this.dom.id.botSect),
       btnWrap: document.getElementById(this.dom.id.btnWrap),
       leftPart: document.getElementById(this.dom.id.leftPart),
+      listWrap: document.getElementById(this.dom.id.listWrap),
       loginWrap: document.getElementById(this.dom.id.loginWrap),
       midSect: document.getElementById(this.dom.id.midSect),
       navBar: document.getElementById(this.dom.id.navBar),
@@ -41,6 +44,7 @@ export default class DomElement {
       rightPart: document.getElementById(this.dom.id.rightPart),
       signUpWrap: document.getElementById(this.dom.id.signUpWrap),
       smallPart: document.getElementById(this.dom.id.smallPart),
+      topBar: document.getElementById(this.dom.id.topBar),
       topSect: document.getElementById(this.dom.id.topSect),
     };
   }
@@ -49,6 +53,8 @@ export default class DomElement {
       avatar: document.getElementById(this.dom.id.avatar),
       avatarVal: document.getElementById(this.dom.id.avatarVal),
       logo: document.getElementById(this.dom.id.logo),
+      logoWrap: document.getElementById(this.dom.id.logoWrap),
+      cd: document.getElementById(this.dom.id.cd),
     };
   }
   get page() {
@@ -101,6 +107,8 @@ export default class DomElement {
   get util() {
     return {
       bars: Array.from(document.getElementsByClassName(this.dom.className.bar)),
+      search: document.getElementById(this.dom.id.searchWrap),
+      currentPlay: document.getElementById(this.dom.id.currentPlay),
     };
   }
 }

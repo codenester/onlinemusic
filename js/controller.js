@@ -11,7 +11,19 @@ export default class Controller {
     this.helperEvent = new HelperEvent();
     this.helperString = new HelperString();
     this.dataEvent = new DataEvent();
-    let { User } = { ...model };
+    let { User, Song } = { ...model };
+    this.store = {
+      user: null,
+      songs: [],
+      currentSong: null,
+      playlists: [],
+      currentPlaylist: null,
+    };
+    this.popularEngSongs = [];
+    this.popularKhSongs = [];
+    this.trendingEngSongs = [];
+    this.trendingKhSongs = [];
+
     this.user = new User();
     this.user.gender = "Male";
     this.user.image = `url(${this.helperString.filePath.maleAvatar})`;
@@ -31,6 +43,8 @@ export default class Controller {
   }
   get start() {
     //global
+    let audio = document.getElementById("music-player");
+
     this.viewEvent.leaveTransition;
     if (window.history.state) {
       for (var step in this.viewEvent.leaveHome)
@@ -53,6 +67,11 @@ export default class Controller {
         for (var step in this.viewEvent.enterLogin) {
           this.viewEvent.enterLogin[step]();
         }
+      } else if (window.history.state.page == "music") {
+        for (var step in this.viewEvent.leaveSignup)
+          this.viewEvent.leaveSignup[step]();
+        for (var step in this.viewEvent.enterHome)
+          this.viewEvent.enterHome[step]();
       }
     } else {
       for (var step in this.viewEvent.leaveSignup)
@@ -64,16 +83,21 @@ export default class Controller {
       this.viewEvent.takeTransition;
       if (window.history.state) {
         this.viewEvent.animateFromHome;
-        await this.helperEvent.timeOut;
+        await this.helperEvent.timeOut();
         if (window.history.state.page == "signup") {
           this.viewEvent.animateToSignup;
         } else if (window.history.state.page == "login") {
           this.viewEvent.animateToLogin;
+        } else if (window.history.state.page == "music") {
+          this.viewEvent.animateToMusic;
         }
       } else {
+        audio.pause();
+        audio.currentTime = 0;
         this.viewEvent.animateFromSignup;
         this.viewEvent.animateFromLogin;
-        await this.helperEvent.timeOut;
+        this.viewEvent.animateFromMusic;
+        await this.helperEvent.timeOut();
         this.viewEvent.animateToHome;
       }
     };
@@ -82,22 +106,24 @@ export default class Controller {
     this.dom.btn.login.onclick = async () => {
       this.viewEvent.takeTransition;
       this.viewEvent.animateFromHome;
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.viewEvent.animateToLogin;
       window.history.pushState({ page: "login" }, "login page");
     };
     this.dom.btn.signup.onclick = async () => {
       this.viewEvent.takeTransition;
       this.viewEvent.animateFromHome;
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.viewEvent.animateToSignup;
       window.history.pushState({ page: "signup" }, "signup page");
     };
     this.dom.btn.start.onclick = async () => {
+      audio.play();
       this.viewEvent.takeTransition;
       this.viewEvent.animateFromHome;
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.viewEvent.animateToMusic;
+      window.history.pushState({ page: "music" }, "music page");
     };
 
     //signup page
@@ -110,7 +136,7 @@ export default class Controller {
     this.dom.btn.discard.onclick = async () => {
       this.viewEvent.takeTransition;
       this.viewEvent.animateFromSignup;
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.viewEvent.animateToHome;
       window.history.back();
     };
@@ -245,7 +271,7 @@ export default class Controller {
     this.dom.btn.cancel.onclick = async () => {
       this.viewEvent.takeTransition;
       this.viewEvent.animateFromLogin;
-      await this.helperEvent.timeOut;
+      await this.helperEvent.timeOut();
       this.viewEvent.animateToHome;
       window.history.back();
     };
@@ -254,31 +280,38 @@ export default class Controller {
     };
     //music-page
     let openMenu = false;
-    this.dom.btn.menu.onclick = () => {
+    this.dom.btn.menu.onclick = async () => {
       if (openMenu) {
-        this.dom.frame.navBar.style.transform =
-          "translateX(calc(-100% + 110px))";
-        this.dom.util.bars[0].style.transform = "translateY(8px) rotate(0)";
-        this.dom.util.bars[1].style.transform = "rotate(0)";
-        this.dom.util.bars[2].style.transform = "translateY(-8px) rotate(0)";
-        setTimeout(() => {
-          this.dom.util.bars[0].style.transform = "translateY(0)";
-          this.dom.util.bars[2].style.transform = "translateY(0)";
-          openMenu = false;
-        }, 200);
+        openMenu = await this.viewEvent.closeMenu;
       } else {
-        this.dom.frame.navBar.style.transform = "translateX(0)";
-        this.dom.util.bars[0].style.transform = "translateY(8px)";
-        this.dom.util.bars[2].style.transform = "translateY(-8px)";
-        setTimeout(() => {
-          this.dom.util.bars[0].style.transform =
-            "translateY(8px) rotate(45deg)";
-          this.dom.util.bars[1].style.transform = "rotate(45deg)";
-          this.dom.util.bars[2].style.transform =
-            "translateY(-8px) rotate(-45deg)";
-          openMenu = true;
-        }, 200);
+        openMenu = await this.viewEvent.openMenu;
       }
+    };
+    this.dom.page.music.onwheel = (e) => {
+      this.dom.image.cd.style.animationDuration = "0.5s";
+      this.dom.image.cd.style.transition = "0.25s";
+      this.dom.image.cd.style.filter = "brightness(10%)";
+      audio.pause();
+      this.dom.file.audioSource.src = "/assets/audio/queen_bee.mp3";
+      setTimeout(() => {
+        this.dom.image.cd.style.backgroundImage =
+          "url(/assets/images/audio/time.jpg)";
+        this.dom.image.cd.style.filter = "brightness(100%)";
+        setTimeout(() => {
+          this.dom.image.cd.style.animationDuration = "20s";
+          audio.load();
+          audio.play();
+        }, 250);
+      }, 250);
+    };
+    this.dom.image.logoWrap.onclick = async () => {
+      audio.pause();
+      audio.currentTime = 0;
+      this.viewEvent.takeTransition;
+      this.viewEvent.animateFromMusic;
+      await this.helperEvent.timeOut();
+      this.viewEvent.animateToHome;
+      window.history.back();
     };
   }
 }

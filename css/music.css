@@ -6,7 +6,7 @@
 }
 #top-bar {
   position: absolute;
-  display: flex;
+  display: none;
   width: 100%;
   height: 40px;
   align-items: center;
@@ -19,7 +19,7 @@
   border-radius: 0 20px 20px 0;
   flex: 1;
   align-items: center;
-  transform: translateX(calc(-100% + 110px));
+  transform: translateX(-100%);
   transition: 0.4s;
 }
 .m-nav-item {
@@ -61,7 +61,7 @@
   transition: 0.2s;
 }
 #search-wrap {
-  max-width: 200px;
+  max-width: 0;
   display: flex;
   margin: 10px;
   background-color: #fff;
@@ -96,7 +96,7 @@
   position: absolute;
   background-color: rgba(255, 255, 255, 0.4);
   width: 400px;
-  height: 100%;
+  height: 0;
   left: 100%;
   transform: translateX(-100%);
 }
@@ -109,11 +109,13 @@
   background-size: cover;
   background-position: 50%;
   border: solid 3px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
   animation: playing 10s linear infinite;
 }
 #center {
@@ -150,7 +152,7 @@
   background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   top: 100%;
-  transform: translateY(-100%);
+  transform: translateY(-100%) translateX(100%);
   display: flex;
   align-items: center;
   color: #fff;
@@ -161,12 +163,62 @@
   height: 100%;
   display: flex;
   align-items: center;
-  animation: forward 10s linear infinite;
+  animation: forward 20s linear infinite;
 }
 .playing-song {
   font-family: "ubuntu-light";
   margin: 0 40px;
 }
+#list-container {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 90px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  grid-template-columns: 150px 250px;
+  grid-template-rows: 30px 1fr;
+  grid-template-areas: "title title" "blank data";
+}
+#list-title {
+  grid-area: title;
+  font-size: 24px;
+  text-align: center;
+  font-style: italic;
+}
+#data-wrap {
+  grid-area: data;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.list-data {
+  width: 100%;
+  text-align: left;
+  margin: 5px 0;
+  font-family: "ubuntu-light";
+  cursor: pointer;
+  transition: 0.2s;
+}
+.current {
+  font-family: "ubuntu-regular";
+  color: rgb(1, 49, 49);
+  font-weight: 900;
+}
+#music-player {
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+}
+
 @keyframes forward {
   to {
     transform: translateX(-100%);
@@ -174,6 +226,6 @@
 }
 @keyframes playing {
   to {
-    transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(720deg);
   }
 }

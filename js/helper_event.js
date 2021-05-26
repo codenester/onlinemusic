@@ -1,6 +1,6 @@
 export default class HelperEvent {
-  get timeOut() {
-    return new Promise((resolve) => setTimeout(resolve, 400));
+  timeOut(millisecond) {
+    return new Promise((resolve) => setTimeout(resolve, millisecond ?? 400));
   }
   validateMail(email) {
     let reg =

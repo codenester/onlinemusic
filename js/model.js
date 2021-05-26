@@ -8,3 +8,15 @@ export class User {
   image = null;
   term = null;
 }
+export class Song {
+  name = null;
+  artist = [];
+  duration = null;
+  releasedDate = null;
+  popular = false;
+  trending = false;
+  category = null;
+  downloadedCount = null;
+  listenedCount = null;
+  image = null;
+}

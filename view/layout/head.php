@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="shortcut icon" href="/assets/images/component/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/mc-calendar.min.css">
+    <link rel="stylesheet" href="/css/awesome/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/awesome/css/brands.css">
+    <link rel="stylesheet" href="/css/awesome/css/solid.css">
     <script src="/js/mc-calendar.min.js"></script>
     <script src="/js/main.js" type="module"></script>
     <title>Online Music</title>
