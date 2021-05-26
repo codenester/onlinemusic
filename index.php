@@ -1,4 +1,4 @@
     <?php
-    session_start();
+    error_log('success');
     header('Location: /view/page/home.php');
     ?>

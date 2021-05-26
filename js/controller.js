@@ -44,6 +44,25 @@ export default class Controller {
   get start() {
     //global
     let audio = document.getElementById("music-player");
+    let testConnection = async () => {
+      try {
+        let res = await fetch("/data/api/add_user.php", {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          method: "POST",
+          body: JSON.stringify({ user: "dara", age: 18 }),
+        });
+        if (res.status == 200) {
+          let data = await res.json();
+          console.log(data);
+        } else {
+          console.log(res);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    testConnection();
 
     this.viewEvent.leaveTransition;
     if (window.history.state) {
