@@ -4,6 +4,7 @@ import HelperEvent from "./helper_event.js";
 import HelperString from "./helper_string.js";
 import DataEvent from "./data_event.js";
 import * as model from "./model.js";
+import API from "./api.js";
 export default class Controller {
   constructor() {
     this.dom = new DomElement();
@@ -11,6 +12,7 @@ export default class Controller {
     this.helperEvent = new HelperEvent();
     this.helperString = new HelperString();
     this.dataEvent = new DataEvent();
+    this.api = new API();
     let { User, Song } = { ...model };
     this.store = {
       user: null,
@@ -44,26 +46,17 @@ export default class Controller {
   get start() {
     //global
     let audio = document.getElementById("music-player");
-    let testConnection = async () => {
-      try {
-        let res = await fetch("/data/api/add_user.php", {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          method: "POST",
-          body: JSON.stringify({ user: "dara", age: 18 }),
-        });
-        if (res.status == 200) {
-          let data = await res.json();
-          console.log(data);
-        } else {
-          console.log(res);
-        }
-      } catch (e) {
-        console.log(e);
-      }
+    let testGetUser = async () => {
+      let res = await this.api.getUser({
+        userName: "sreyvin",
+        password: "Sreyvin123",
+        login: true,
+      });
+      if (res.success) {
+        console.log(res.result);
+      } else console.log(res.msg);
     };
-    testConnection();
-
+    testGetUser();
     this.viewEvent.leaveTransition;
     if (window.history.state) {
       for (var step in this.viewEvent.leaveHome)
@@ -271,7 +264,7 @@ export default class Controller {
           this.dataEvent.writeSignUpState({ user: this.user });
         });
     };
-    this.dom.btn.register.onclick = () => {
+    this.dom.btn.register.onclick = async () => {
       let valid =
         this.validationMsg.username == "" &&
         this.validationMsg.password == "" &&
@@ -282,6 +275,57 @@ export default class Controller {
           this.dom.text.confirmPasswordValidate.innerText =
             "Password doesn't match!";
         } else {
+          let avatar = this.user.image;
+          if (!avatar.bytes) {
+            avatar = avatar.replace("url(", "");
+            avatar = avatar.replace(")", "");
+          }
+          let user = {
+            userName: this.user.username,
+            userNameKh: null,
+            realName: null,
+            realNameKh: null,
+            password: this.user.password,
+            gender: this.user.gender,
+            birthDate: this.user.birthDate ?? null,
+            address: null,
+            mail: this.user.mail ?? null,
+            phone: this.user.phone ?? null,
+            image: avatar,
+          };
+          user.joinedDate = this.helperEvent.dateConverter(new Date());
+          this.viewEvent.startDataProcess("Saving...");
+          await this.helperEvent.timeOut(1000);
+          let getUserRes = await this.api.getUser({
+            userName: user.userName,
+            login: false,
+          });
+          let userExist = false;
+          if (getUserRes.success && getUserRes.result.info.length > 0) {
+            userExist = true;
+          }
+          if (userExist) {
+            this.validationMsg.username = "This username already exists";
+            this.dom.text.usernameValidate.innerText =
+              this.validationMsg.username;
+            this.dataEvent.writeSignUpState({ validation: this.validationMsg });
+            document.body.removeChild(this.dom.frame.modal);
+          } else {
+            let res = await this.api.register(user);
+            if (res.success) {
+              this.viewEvent.takeTransition;
+              await this.helperEvent.timeOut();
+              await this.viewEvent.stopDataProcess();
+              await this.viewEvent.animateFromSignup;
+              await this.viewEvent.animateToHome;
+              document.body.removeChild(this.dom.frame.modal);
+              window.history.back();
+            } else {
+              console.log(res.msg);
+              await this.viewEvent.stopDataProcess();
+              document.body.removeChild(this.dom.frame.modal);
+            }
+          }
         }
       }
     };

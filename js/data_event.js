@@ -6,7 +6,6 @@ export default class DataEvent {
   get readSignUpState() {
     let user = { ...window.history.state.user };
     let validation = { ...window.history.state.validation };
-    console.log(window.history.state);
     if (user.gender === "Male") {
       this.dom.radio.male.checked = true;
     } else {

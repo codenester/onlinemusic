@@ -223,6 +223,60 @@
 #start:active {
   box-shadow: 0 0 5px #fff;
 }
+#modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#dialog {
+  width: 200px;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  transform: scale(0);
+}
+#svg-wrapper {
+  animation: rotating 1s ease-in-out infinite;
+}
+#process-teller {
+  margin-top: 14px;
+}
+#circle {
+  stroke-dasharray: 190;
+  animation: loading 1s ease-in-out infinite;
+}
+#check {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 0;
+  animation: checking 0.5s linear;
+}
+@keyframes checking {
+  from {
+    stroke-dashoffset: 120;
+  }
+}
+@keyframes loading {
+  from {
+    stroke-dasharray: 0;
+  }
+}
+@keyframes rotating {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @media screen and (max-width: 515px) {
   #home {
     flex-direction: column;

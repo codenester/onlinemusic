@@ -256,4 +256,42 @@ export default class ViewEvent {
       return false;
     })();
   }
+  async startDataProcess(processText) {
+    let modal = document.createElement("div");
+    modal.id = "modal";
+    let dialog = document.createElement("div");
+    dialog.id = "dialog";
+    modal.appendChild(dialog);
+    let svgWrapper = document.createElement("div");
+    svgWrapper.style.width = "100px";
+    svgWrapper.style.height = "100px";
+    svgWrapper.id = "svg-wrapper";
+    svgWrapper.innerHTML = `<svg width=100 height=100>
+    <circle id='circle' cx=50 cy=50 r=30 stroke='green' stroke-width=10 fill='none'/>
+    </svg>`;
+    dialog.appendChild(svgWrapper);
+    let processTeller = document.createElement("div");
+    processTeller.id = "process-teller";
+    processTeller.innerText = processText;
+    dialog.appendChild(processTeller);
+    document.body.appendChild(modal);
+    await this.helperEvent.timeOut(100);
+    dialog.style.transform = "scale(1)";
+  }
+  async stopDataProcess() {
+    this.dom.frame.dialog.removeChild(this.dom.util.svg);
+    let checker = document.createElement("div");
+    checker.style.width = "100px";
+    checker.style.height = "100px";
+    this.dom.frame.dialog.appendChild(checker);
+    let copy = this.dom.text.processTeller;
+    this.dom.frame.dialog.removeChild(copy);
+    this.dom.frame.dialog.appendChild(copy);
+    checker.innerHTML = `<svg width=100 height=100>
+      <path id='check' d='M20 60 L40 80 L85 30' stroke='green' fill='none' stroke-width=10>
+    </svg>`;
+    this.dom.text.processTeller.innerText = "Done";
+    await this.helperEvent.timeOut(1000);
+    this.dom.frame.dialog.style.transform = "scale(0)";
+  }
 }

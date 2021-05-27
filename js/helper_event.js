@@ -83,4 +83,11 @@ export default class HelperEvent {
     };
     reader.readAsArrayBuffer(imageFile);
   }
+  dateConverter(date) {
+    let months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec".split(",");
+    let day = date.getDay();
+    let month = months[date.getMonth() - 1];
+    let year = date.getFullYear();
+    return [day, month, year].join("-");
+  }
 }

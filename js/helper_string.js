@@ -5,4 +5,10 @@ export default class HelperString {
       maleAvatar: "/assets/images/avatar/m_avatar1.png",
     };
   }
+  get api() {
+    return {
+      register: "/data/api/add_user.php",
+      getUser: "/data/api/get_user.php",
+    };
+  }
 }

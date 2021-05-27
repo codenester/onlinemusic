@@ -35,10 +35,12 @@ export default class DomElement {
       banner: document.getElementById(this.dom.id.banner),
       botSect: document.getElementById(this.dom.id.botSect),
       btnWrap: document.getElementById(this.dom.id.btnWrap),
+      dialog: document.getElementById(this.dom.id.dialog),
       leftPart: document.getElementById(this.dom.id.leftPart),
       listWrap: document.getElementById(this.dom.id.listWrap),
       loginWrap: document.getElementById(this.dom.id.loginWrap),
       midSect: document.getElementById(this.dom.id.midSect),
+      modal: document.getElementById(this.dom.id.modal),
       navBar: document.getElementById(this.dom.id.navBar),
       navWrap: document.getElementById(this.dom.id.navWrap),
       rightPart: document.getElementById(this.dom.id.rightPart),
@@ -83,6 +85,7 @@ export default class DomElement {
       male: document.getElementById(this.dom.id.textMale),
       passwordValidate: document.getElementById(this.dom.id.passwordValidate),
       phoneValidate: document.getElementById(this.dom.id.phoneValidate),
+      processTeller: document.getElementById(this.dom.id.processTeller),
       signUpTitle: document.getElementById(this.dom.id.signUpTitle),
       siteName: document.getElementById(this.dom.id.siteName),
       usernameValidate: document.getElementById(this.dom.id.usernameValidate),
@@ -107,8 +110,10 @@ export default class DomElement {
   get util() {
     return {
       bars: Array.from(document.getElementsByClassName(this.dom.className.bar)),
-      search: document.getElementById(this.dom.id.searchWrap),
+      circle: document.getElementById(this.dom.id.circle),
       currentPlay: document.getElementById(this.dom.id.currentPlay),
+      search: document.getElementById(this.dom.id.searchWrap),
+      svg: document.getElementById(this.dom.id.svg),
     };
   }
 }
