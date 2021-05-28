@@ -9,6 +9,7 @@ export default class HelperString {
     return {
       register: "/data/api/add_user.php",
       getUser: "/data/api/get_user.php",
+      logout: "/data/api/logout.php",
     };
   }
 }

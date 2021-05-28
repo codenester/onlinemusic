@@ -48,36 +48,36 @@
         public function realToA()
         {
             return [
-                'id' => $this->id,
-                'user_name' => $this->userName,
-                'user_name_kh' => $this->userNameKh,
-                'real_name' => $this->realName,
-                'real_name_kh' => $this->realNameKh,
-                'user_password' => $this->password,
-                'gender' => $this->gender,
-                'birth_date' => $this->birthDate,
-                'address' => $this->address,
-                'mail' => $this->mail,
-                'phone' => $this->phone,
-                'joinedDate' => $this->joinedDate,
-                'image' => $this->image
+                USER_ID => $this->id,
+                USER_NAME => $this->userName,
+                USER_NAME_KH => $this->userNameKh ?? null,
+                USER_REAL_NAME => $this->realName ?? null,
+                USER_REAL_NAME_KH => $this->realNameKh ?? null,
+                USER_PASSWORD => $this->password,
+                USER_GENDER => $this->gender,
+                USER_BIRTH_DATE => $this->birthDate ?? null,
+                USER_ADDRESS => $this->address ?? null,
+                USER_MAIL => $this->mail ?? null,
+                USER_PHONE => $this->phone ?? null,
+                USER_JOINED_DATE => $this->joinedDate,
+                USER_IMAGE => $this->image
             ];
         }
         public function realForDbInsert()
         {
             return [
-                'user_name' => $this->userName,
-                'user_name_kh' => $this->userNameKh ?? null,
-                'real_name' => $this->realName ?? null,
-                'real_name_kh' => $this->realNameKh ?? null,
-                'user_password' => $this->password,
-                'gender' => $this->gender,
-                'birth_date' => $this->birthDate ?? null,
-                'address' => $this->address ?? null,
-                'mail' => $this->mail ?? null,
-                'phone' => $this->phone ?? null,
-                'joined_date' => $this->joinedDate,
-                'image' => $this->image
+                USER_NAME => $this->userName,
+                USER_NAME_KH => $this->userNameKh ?? null,
+                USER_REAL_NAME => $this->realName ?? null,
+                USER_REAL_NAME_KH => $this->realNameKh ?? null,
+                USER_PASSWORD => $this->password,
+                USER_GENDER => $this->gender,
+                USER_BIRTH_DATE => $this->birthDate ?? null,
+                USER_ADDRESS => $this->address ?? null,
+                USER_MAIL => $this->mail ?? null,
+                USER_PHONE => $this->phone ?? null,
+                USER_JOINED_DATE => $this->joinedDate,
+                USER_IMAGE => $this->image
             ];
         }
         public function fromA(array $arr)
@@ -95,6 +95,22 @@
             $this->phone = $arr['phone'] ?? '';
             $this->joinedDate = $arr['joinedDate'];
             $this->image = $arr['image'];
+        }
+        public function realFromA(array $arr)
+        {
+            if ($arr['id']) $this->id = $arr[USER_ID];
+            $this->userName = $arr[USER_NAME];
+            $this->userNameKh = $arr[USER_NAME_KH] ?? '';
+            $this->realName = $arr[USER_REAL_NAME] ?? '';
+            $this->realNameKh = $arr[USER_REAL_NAME_KH] ?? '';
+            $this->password = $arr[USER_PASSWORD];
+            $this->gender = $arr[USER_GENDER];
+            $this->birthDate = $arr[USER_BIRTH_DATE] ?? '';
+            $this->address = $arr[USER_ID] ?? '';
+            $this->mail = $arr[USER_MAIL] ?? '';
+            $this->phone = $arr[USER_PHONE] ?? '';
+            $this->joinedDate = $arr[USER_JOINED_DATE];
+            $this->image = $arr[USER_IMAGE];
         }
     }
     ?>

@@ -1,6 +1,12 @@
+<script>
+    let currentUser;
+</script>
 <?php
 include_once('../layout/head.php');
 include_once('../../helper/state.php');
+if (isset($_COOKIE['user'])) {
+    include_once('../../helper/detect_cookie.php');
+}
 ?>
 <link rel="stylesheet" href="/css/home.css">
 <div id="container">

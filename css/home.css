@@ -55,6 +55,8 @@
   text-transform: uppercase;
   border-radius: 3px;
   border: solid 1px #eee;
+  justify-content: center;
+  align-items: center;
   color: #eee;
   cursor: pointer;
   transition: 0.1s;
@@ -261,6 +263,12 @@
   stroke-dasharray: 120;
   stroke-dashoffset: 0;
   animation: checking 0.5s linear;
+}
+#current-user {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  width: 100px;
 }
 @keyframes checking {
   from {

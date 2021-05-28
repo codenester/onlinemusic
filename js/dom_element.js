@@ -15,6 +15,7 @@ export default class DomElement {
       cancel: document.getElementById(this.dom.id.cancel),
       discard: document.getElementById(this.dom.id.discard),
       login: document.getElementById(this.dom.id.login),
+      logout: document.getElementById(this.dom.id.logout),
       menu: document.getElementById(this.dom.id.menu),
       play: document.getElementById(this.dom.id.playBtn),
       register: document.getElementById(this.dom.id.register),
@@ -78,6 +79,7 @@ export default class DomElement {
       confirmPasswordValidate: document.getElementById(
         this.dom.id.confirmPasswordValidate
       ),
+      currentUser: document.getElementById(this.dom.id.currentUser),
       female: document.getElementById(this.dom.id.textFemale),
       loginTitle: document.getElementById(this.dom.id.loginTitle),
       loginValidate: document.getElementById(this.dom.id.loginValidate),
@@ -101,6 +103,8 @@ export default class DomElement {
     return {
       birthDate: document.getElementById(this.dom.id.birthDate),
       confirmPassword: document.getElementById(this.dom.id.confirmPassword),
+      loginPassword: document.getElementById(this.dom.id.loginPassword),
+      loginUserName: document.getElementById(this.dom.id.loginUserName),
       mail: document.getElementById(this.dom.id.mail),
       password: document.getElementById(this.dom.id.password),
       phone: document.getElementById(this.dom.id.phone),

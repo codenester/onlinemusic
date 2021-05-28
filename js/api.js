@@ -46,4 +46,18 @@ export default class API {
       };
     }
   }
+  async logout() {
+    try {
+      await this.post(this.helper.api.logout);
+      return {
+        success: true,
+        info: "logged out",
+      };
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
 }

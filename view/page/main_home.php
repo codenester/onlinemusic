@@ -17,6 +17,8 @@
                 <div id="btn-wrap">
                     <button id="sign-up" class="btn-type1">Signup</button>
                     <button id="login" class="btn-type1">Login</button>
+                    <div id="current-user"></div>
+                    <button id="logout-btn" class="btn-type1">Logout</button>
                 </div>
             </div>
         </div>

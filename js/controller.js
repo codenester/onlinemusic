@@ -45,18 +45,32 @@ export default class Controller {
   }
   get start() {
     //global
-    let audio = document.getElementById("music-player");
-    let testGetUser = async () => {
-      let res = await this.api.getUser({
-        userName: "sreyvin",
-        password: "Sreyvin123",
-        login: true,
+    let login = false;
+    let initUser = async () => {
+      let userRes = await this.api.getUser({
+        userName: currentUser,
+        login: false,
       });
-      if (res.success) {
-        console.log(res.result);
-      } else console.log(res.msg);
+      if (userRes.success) {
+        this.store.user = userRes.result.info[0];
+      }
+      console.log(this.store.user);
     };
-    testGetUser();
+    if (currentUser) {
+      login = true;
+      initUser();
+      this.dom.btn.signup.style.display = "none";
+      this.dom.btn.login.style.display = "none";
+      this.dom.text.currentUser.innerText = currentUser.toUpperCase();
+      this.dom.text.currentUser.style.display = "flex";
+      this.dom.btn.logout.style.display = "flex";
+    } else {
+      this.dom.btn.signup.style.display = "flex";
+      this.dom.btn.login.style.display = "flex";
+      this.dom.text.currentUser.style.display = "none";
+      this.dom.btn.logout.style.display = "none";
+    }
+    let audio = document.getElementById("music-player");
     this.viewEvent.leaveTransition;
     if (window.history.state) {
       for (var step in this.viewEvent.leaveHome)
@@ -136,6 +150,31 @@ export default class Controller {
       await this.helperEvent.timeOut();
       this.viewEvent.animateToMusic;
       window.history.pushState({ page: "music" }, "music page");
+    };
+    this.dom.btn.logout.onclick = async () => {
+      this.api.logout();
+      this.dom.btn.login.style.transform = "scaleY(0)";
+      this.dom.btn.signup.style.transform = "scaleY(0)";
+      this.dom.text.currentUser.style.transition = "0.4s";
+      this.dom.btn.logout.style.transition = "0.4s";
+      this.dom.text.currentUser.style.opacity = 0;
+      this.dom.btn.logout.style.transform = "scaleY(0)";
+      await this.helperEvent.timeOut();
+      this.dom.text.currentUser.style.display = "none";
+      this.dom.btn.logout.style.display = "none";
+      this.dom.btn.signup.style.display = "flex";
+      this.dom.btn.login.style.display = "flex";
+      this.dom.text.currentUser.style.transition = "0s";
+      this.dom.btn.logout.style.transition = "0s";
+      this.dom.text.currentUser.style.opacity = 1;
+      this.dom.btn.logout.style.transform = "scaleY(1)";
+      this.dom.btn.signup.style.transition = "0.4s";
+      this.dom.btn.login.style.transition = "0.4s";
+      this.dom.btn.signup.style.transform = "scaleY(1)";
+      this.dom.btn.login.style.transform = "scaleY(1)";
+      await this.helperEvent.timeOut();
+      this.dom.btn.signup.style.transition = "0s";
+      this.dom.btn.login.style.transition = "0s";
     };
 
     //signup page
@@ -338,8 +377,37 @@ export default class Controller {
       this.viewEvent.animateToHome;
       window.history.back();
     };
-    this.dom.btn.submitLogin.onclick = () => {
-      this.dom.text.loginValidate.innerText = "Incorrect username or password!";
+    this.dom.textBox.loginUserName.onkeypress = () => {
+      this.dom.text.loginValidate.innerText = "";
+    };
+    this.dom.textBox.loginPassword.onkeypress = () => {
+      this.dom.text.loginValidate.innerText = "";
+    };
+    this.dom.btn.submitLogin.onclick = async () => {
+      this.viewEvent.startDataProcess("logging in...");
+      let res = await this.api.getUser({
+        userName: this.dom.textBox.loginUserName.value,
+        password: this.dom.textBox.loginPassword.value,
+        login: true,
+      });
+      if (res.success && res.result.info.length > 0) {
+        this.store.user = res.result.info[0];
+        this.viewEvent.takeTransition;
+        document.body.removeChild(this.dom.frame.modal);
+        await this.viewEvent.animateFromLogin;
+        this.dom.btn.login.style.display = "none";
+        this.dom.btn.signup.style.display = "none";
+        this.dom.text.currentUser.style.display = "flex";
+        this.dom.btn.logout.style.display = "flex";
+        this.dom.text.currentUser.innerText =
+          this.store.user.userName.toUpperCase();
+        await this.viewEvent.animateToHome;
+        window.history.back();
+      } else {
+        this.dom.text.loginValidate.innerText =
+          "Incorrect username or password!";
+        document.body.removeChild(this.dom.frame.modal);
+      }
     };
     //music-page
     let openMenu = false;
