@@ -10,6 +10,7 @@ export default class HelperString {
       register: "/data/api/add_user.php",
       getUser: "/data/api/get_user.php",
       logout: "/data/api/logout.php",
+      getTopSongs: "/data/api/get_top_songs.php",
     };
   }
 }

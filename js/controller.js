@@ -56,6 +56,11 @@ export default class Controller {
       }
       console.log(this.store.user);
     };
+    let testGetTopSongs = async () => {
+      let res = await this.api.getTopSongs();
+      console.log(res);
+    };
+    testGetTopSongs();
     if (currentUser) {
       login = true;
       initUser();

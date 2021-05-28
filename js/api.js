@@ -4,14 +4,17 @@ export default class API {
     this.helper = new HelperString();
   }
   async post(url, requestData) {
-    let res = await fetch(url, {
+    let option = {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       method: "POST",
-      body: JSON.stringify(requestData),
-    });
+    };
+    if (requestData) {
+      option.body = JSON.stringify(requestData);
+    }
+    let res = await fetch(url, option);
     if (res.status != 200) {
       return {
         success: false,
@@ -53,6 +56,17 @@ export default class API {
         success: true,
         info: "logged out",
       };
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
+  async getTopSongs() {
+    try {
+      let res = await this.post(this.helper.api.getTopSongs);
+      return res;
     } catch (e) {
       return {
         success: false,
