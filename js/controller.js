@@ -460,6 +460,17 @@ export default class Controller {
       this.dom.image.cd.style.animationDuration = "0.5s";
       this.dom.image.cd.style.transition = "0.25s";
       this.dom.image.cd.style.filter = "brightness(10%)";
+      this.dom.text.playingSong.forEach((v) => {
+        let currentSong = this.topSongs[currentTopCate][currentSongPos];
+        let artists = currentSong.artists.map((el) =>
+          el.name != "Vannda" || el.name != "Master Kung Nay"
+            ? el.nameKh ?? el.name
+            : el.name
+        );
+        v.innerText = `${
+          currentSong.nameKh ?? currentSong.name
+        }: by ${artists.join(" ft. ")}`;
+      });
       audio.pause();
       this.dom.file.audioSource.src =
         "/" + this.topSongs[currentTopCate][currentSongPos].source;
@@ -576,6 +587,12 @@ export default class Controller {
         }
       }
       switchAudio();
+    };
+    audio.onpause = () => {
+      this.dom.image.cd.style.animationPlayState = "paused";
+    };
+    audio.onplay = () => {
+      this.dom.image.cd.style.animationPlayState = "running";
     };
   }
 }

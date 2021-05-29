@@ -102,6 +102,9 @@ export default class DomElement {
       smallLetters: Array.from(
         document.getElementsByClassName(this.dom.className.smallLetter)
       ),
+      playingSong: Array.from(
+        document.getElementsByClassName(this.dom.className.playingSong)
+      ),
     };
   }
   get textBox() {
