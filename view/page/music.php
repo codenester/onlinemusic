@@ -11,7 +11,6 @@
                         <div class="list-data">Queen Bee</div>
                         <div class="list-data">Hit The Road</div>
                         <div class="list-data">Time</div>
-                        <div class="list-data">លក់គោយន្ត</div>
 
                     </div>
                     <audio id="music-player" controls>

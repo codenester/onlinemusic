@@ -21,6 +21,7 @@ export default class Controller {
       playlists: [],
       currentPlaylist: null,
     };
+    this.topSongs = [];
     this.popularEngSongs = [];
     this.popularKhSongs = [];
     this.trendingEngSongs = [];
@@ -45,6 +46,15 @@ export default class Controller {
   }
   get start() {
     //global
+    let currentSongPos = 0;
+    let currentTopCate = 0;
+    let titles = [
+      "Popular Khmer Songs",
+      "Popular English Songs",
+      "Trending Khmer Songs",
+      "Trending English Songs",
+    ];
+
     let login = false;
     let initUser = async () => {
       let userRes = await this.api.getUser({
@@ -54,13 +64,29 @@ export default class Controller {
       if (userRes.success) {
         this.store.user = userRes.result.info[0];
       }
-      console.log(this.store.user);
     };
-    let testGetTopSongs = async () => {
+    let extractTopSongs = async () => {
       let res = await this.api.getTopSongs();
-      console.log(res);
+      this.popularEngSongs = res.result.info.popularEn;
+      this.popularKhSongs = res.result.info.popularKh;
+      this.trendingEngSongs = res.result.info.trendingEn;
+      this.trendingKhSongs = res.result.info.trendingKh;
+      audio.pause();
+      this.dom.file.audioSource.src = "/" + this.popularKhSongs[0].source;
+      this.dom.image.cd.style.backgroundImage = `url(/${this.popularKhSongs[0].image})`;
+      this.dom.text.listTitle.innerText = "Popular Khmer Songs";
+      this.popularKhSongs.forEach((v, i) => {
+        this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
+      });
+      this.topSongs = [
+        this.popularKhSongs,
+        this.popularEngSongs,
+        this.trendingKhSongs,
+        this.trendingEngSongs,
+      ];
+      audio.load();
     };
-    testGetTopSongs();
+    extractTopSongs();
     if (currentUser) {
       login = true;
       initUser();
@@ -423,15 +449,22 @@ export default class Controller {
         openMenu = await this.viewEvent.openMenu;
       }
     };
-    this.dom.page.music.onwheel = (e) => {
+    let switchAudio = () => {
+      this.dom.text.listData.forEach((v, i) => {
+        if (i != currentSongPos) {
+          v.classList.remove("current");
+        } else {
+          v.classList.add("current");
+        }
+      });
       this.dom.image.cd.style.animationDuration = "0.5s";
       this.dom.image.cd.style.transition = "0.25s";
       this.dom.image.cd.style.filter = "brightness(10%)";
       audio.pause();
-      this.dom.file.audioSource.src = "/assets/audio/queen_bee.mp3";
+      this.dom.file.audioSource.src =
+        "/" + this.topSongs[currentTopCate][currentSongPos].source;
       setTimeout(() => {
-        this.dom.image.cd.style.backgroundImage =
-          "url(/assets/images/audio/time.jpg)";
+        this.dom.image.cd.style.backgroundImage = `url(/${this.topSongs[currentTopCate][currentSongPos].image})`;
         this.dom.image.cd.style.filter = "brightness(100%)";
         setTimeout(() => {
           this.dom.image.cd.style.animationDuration = "20s";
@@ -439,6 +472,50 @@ export default class Controller {
           audio.play();
         }, 250);
       }, 250);
+    };
+    this.dom.page.music.onwheel = (e) => {
+      if (e.deltaY > 0) {
+        if (currentTopCate < 4) {
+          currentSongPos++;
+          if (currentSongPos > 4) {
+            currentSongPos = 0;
+            currentTopCate++;
+            if (currentTopCate > 3) currentTopCate = 0;
+            this.dom.text.listTitle.innerText = titles[currentTopCate];
+            this.topSongs[currentTopCate].forEach((v, i) => {
+              this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
+            });
+            this.dom.util.indicators.forEach((v, i) => {
+              if (i != currentTopCate) {
+                v.classList.remove("active");
+              } else {
+                v.classList.add("active");
+              }
+            });
+          }
+        }
+      } else {
+        if (currentTopCate >= 0) {
+          currentSongPos--;
+          if (currentSongPos < 0) {
+            currentSongPos = 4;
+            currentTopCate--;
+            if (currentTopCate < 0) currentTopCate = 3;
+            this.dom.text.listTitle.innerText = titles[currentTopCate];
+            this.topSongs[currentTopCate].forEach((v, i) => {
+              this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
+            });
+            this.dom.util.indicators.forEach((v, i) => {
+              if (i != currentTopCate) {
+                v.classList.remove("active");
+              } else {
+                v.classList.add("active");
+              }
+            });
+          }
+        }
+      }
+      switchAudio();
     };
     this.dom.image.logoWrap.onclick = async () => {
       audio.pause();
@@ -448,6 +525,48 @@ export default class Controller {
       await this.helperEvent.timeOut();
       this.viewEvent.animateToHome;
       window.history.back();
+    };
+    this.dom.text.listData.forEach((v, i) => {
+      v.onclick = () => {
+        currentSongPos = i;
+        switchAudio();
+      };
+    });
+    this.dom.util.indicators.forEach((v, i) => {
+      v.onclick = () => {
+        currentTopCate = i;
+        currentSongPos = 0;
+        this.dom.util.indicators.forEach((el, j) => {
+          if (j != i) {
+            el.classList.remove("active");
+          } else {
+            el.classList.add("active");
+          }
+        });
+        switchAudio();
+      };
+    });
+    audio.onended = () => {
+      if (currentTopCate < 4) {
+        currentSongPos++;
+        if (currentSongPos > 4) {
+          currentSongPos = 0;
+          currentTopCate++;
+          if (currentTopCate > 3) currentTopCate = 0;
+          this.dom.text.listTitle.innerText = titles[currentTopCate];
+          this.topSongs[currentTopCate].forEach((v, i) => {
+            this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
+          });
+          this.dom.util.indicators.forEach((v, i) => {
+            if (i != currentTopCate) {
+              v.classList.remove("active");
+            } else {
+              v.classList.add("active");
+            }
+          });
+        }
+      }
+      switchAudio();
     };
   }
 }

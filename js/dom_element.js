@@ -38,6 +38,7 @@ export default class DomElement {
       btnWrap: document.getElementById(this.dom.id.btnWrap),
       dialog: document.getElementById(this.dom.id.dialog),
       leftPart: document.getElementById(this.dom.id.leftPart),
+      listContainer: document.getElementById(this.dom.id.listContainer),
       listWrap: document.getElementById(this.dom.id.listWrap),
       loginWrap: document.getElementById(this.dom.id.loginWrap),
       midSect: document.getElementById(this.dom.id.midSect),
@@ -81,6 +82,10 @@ export default class DomElement {
       ),
       currentUser: document.getElementById(this.dom.id.currentUser),
       female: document.getElementById(this.dom.id.textFemale),
+      listTitle: document.getElementById(this.dom.id.listTitle),
+      listData: Array.from(
+        document.getElementsByClassName(this.dom.className.listData)
+      ),
       loginTitle: document.getElementById(this.dom.id.loginTitle),
       loginValidate: document.getElementById(this.dom.id.loginValidate),
       mailValidate: document.getElementById(this.dom.id.mailValidate),
@@ -116,6 +121,9 @@ export default class DomElement {
       bars: Array.from(document.getElementsByClassName(this.dom.className.bar)),
       circle: document.getElementById(this.dom.id.circle),
       currentPlay: document.getElementById(this.dom.id.currentPlay),
+      indicators: Array.from(
+        document.getElementsByClassName(this.dom.className.indicator)
+      ),
       search: document.getElementById(this.dom.id.searchWrap),
       svg: document.getElementById(this.dom.id.svg),
     };

@@ -145,6 +145,7 @@ export default class ViewEvent {
         this.dom.frame.listWrap.style.height = "100%";
       },
       step3: () => {
+        this.dom.frame.listContainer.style.display = "grid";
         this.dom.image.cd.style.opacity = 1;
         this.dom.util.currentPlay.style.transform =
           "translateY(-100%) translateX(0)";
@@ -154,6 +155,7 @@ export default class ViewEvent {
   get leaveMusic() {
     return {
       step1: () => {
+        this.dom.frame.listContainer.style.display = "none";
         this.dom.image.cd.style.opacity = 0;
         this.dom.util.currentPlay.style.transform = "translate(100% -100%)";
         this.dom.frame.navBar.style.transform = "-100%";

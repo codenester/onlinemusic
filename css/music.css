@@ -142,6 +142,7 @@
   background-color: rgb(0, 46, 46);
   border-radius: 4px;
   cursor: pointer;
+  transition: 0.2s;
 }
 .active {
   background-color: rgb(2, 241, 241);
@@ -175,7 +176,7 @@
   height: calc(100% - 90px);
   top: 50%;
   transform: translateY(-50%);
-  display: grid;
+  display: none;
   grid-template-columns: 150px 250px;
   grid-template-rows: 30px 1fr;
   grid-template-areas: "title title" "blank data";
