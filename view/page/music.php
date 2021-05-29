@@ -6,11 +6,11 @@
                 <div id="list-container">
                     <div id="list-title">Popular Khmer Songs</div>
                     <div id="data-wrap">
-                        <div class="list-data current">Time To Rise</div>
-                        <div class="list-data">If I Die</div>
-                        <div class="list-data">Queen Bee</div>
-                        <div class="list-data">Hit The Road</div>
-                        <div class="list-data">Time</div>
+                        <div class="list-data current"></div>
+                        <div class="list-data"></div>
+                        <div class="list-data"></div>
+                        <div class="list-data"></div>
+                        <div class="list-data"></div>
 
                     </div>
                     <audio id="music-player" controls>
@@ -45,11 +45,11 @@
 </div>
 <div id="top-bar">
     <div id="nav-bar">
-        <div class="m-nav-item m-active">Top Songs</div>
-        <div class="m-nav-item">Playlist</div>
-        <div class="m-nav-item">Donate</div>
-        <div class="m-nav-item">About</div>
-        <div class="m-nav-item">Logout</div>
+        <div class="m-nav-item m-active" id="top-song">Top Songs</div>
+        <div class="m-nav-item" id="all-song">All Songs</div>
+        <div class="m-nav-item" id="playlist">Playlists</div>
+        <div class="m-nav-item" id="about">About</div>
+        <div class="m-nav-item" id="logout-nav">Logout</div>
         <div id="logo-wrap"></div>
         <div id="menu">
             <div id="bar-wrap">

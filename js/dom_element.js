@@ -61,6 +61,15 @@ export default class DomElement {
       cd: document.getElementById(this.dom.id.cd),
     };
   }
+  get navigation() {
+    return {
+      topSong: document.getElementById(this.dom.id.topSong),
+      allSong: document.getElementById(this.dom.id.allSong),
+      about: document.getElementById(this.dom.id.about),
+      logout: document.getElementById(this.dom.id.logoutNav),
+      playlist: document.getElementById(this.dom.id.playlist),
+    };
+  }
   get page() {
     return {
       home: document.getElementById(this.dom.id.home),

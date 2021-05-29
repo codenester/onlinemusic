@@ -75,6 +75,7 @@ export default class Controller {
       this.dom.file.audioSource.src = "/" + this.popularKhSongs[0].source;
       this.dom.image.cd.style.backgroundImage = `url(/${this.popularKhSongs[0].image})`;
       this.dom.text.listTitle.innerText = "Popular Khmer Songs";
+
       this.popularKhSongs.forEach((v, i) => {
         this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
       });
@@ -181,6 +182,13 @@ export default class Controller {
       await this.helperEvent.timeOut();
       this.viewEvent.animateToMusic;
       window.history.pushState({ page: "music" }, "music page");
+      this.dom.text.playingSong.forEach((v) => {
+        let currentSong = this.topSongs[currentTopCate][currentSongPos];
+        let artists = currentSong.artists.map((el) => el.nameKh ?? el.name);
+        v.innerText = `${
+          currentSong.nameKh ?? currentSong.name
+        }: by ${artists.join(" ft. ")}`;
+      });
     };
     this.dom.btn.logout.onclick = async () => {
       this.api.logout();
@@ -462,11 +470,7 @@ export default class Controller {
       this.dom.image.cd.style.filter = "brightness(10%)";
       this.dom.text.playingSong.forEach((v) => {
         let currentSong = this.topSongs[currentTopCate][currentSongPos];
-        let artists = currentSong.artists.map((el) =>
-          el.name != "Vannda" || el.name != "Master Kung Nay"
-            ? el.nameKh ?? el.name
-            : el.name
-        );
+        let artists = currentSong.artists.map((el) => el.nameKh ?? el.name);
         v.innerText = `${
           currentSong.nameKh ?? currentSong.name
         }: by ${artists.join(" ft. ")}`;
@@ -594,5 +598,6 @@ export default class Controller {
     audio.onplay = () => {
       this.dom.image.cd.style.animationPlayState = "running";
     };
+    
   }
 }
