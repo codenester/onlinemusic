@@ -11,6 +11,7 @@ export default class HelperString {
       getUser: "/data/api/get_user.php",
       logout: "/data/api/logout.php",
       getTopSongs: "/data/api/get_top_songs.php",
+      getAllSongs: "/data/api/get_all_songs.php",
     };
   }
 }

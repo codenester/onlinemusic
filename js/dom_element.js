@@ -72,10 +72,11 @@ export default class DomElement {
   }
   get page() {
     return {
+      allSong: document.getElementById(this.dom.id.allSongPage),
       home: document.getElementById(this.dom.id.home),
       login: document.getElementById(this.dom.id.loginPage),
-      signUp: document.getElementById(this.dom.id.signUpPage),
       music: document.getElementById(this.dom.id.musicPage),
+      signUp: document.getElementById(this.dom.id.signUpPage),
     };
   }
   get radio() {
@@ -136,6 +137,7 @@ export default class DomElement {
       indicators: Array.from(
         document.getElementsByClassName(this.dom.className.indicator)
       ),
+      musicIndicator: document.getElementById("music-indicator"),
       search: document.getElementById(this.dom.id.searchWrap),
       svg: document.getElementById(this.dom.id.svg),
     };

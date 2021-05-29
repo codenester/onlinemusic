@@ -74,4 +74,15 @@ export default class API {
       };
     }
   }
+  async getAllSongs() {
+    try {
+      let res = await this.post(this.helper.api.getAllSongs);
+      return res;
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
 }

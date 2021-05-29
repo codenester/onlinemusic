@@ -1,0 +1,74 @@
+#all-song-page {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+#all-song-wrap {
+  display: flex;
+  position: absolute;
+  width: calc(100% - 40px);
+  height: calc(100% - 80px);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  overflow-y: auto;
+}
+.song {
+  width: 280px;
+  height: 200px;
+  background-color: #fff;
+  transform: scale(0);
+  box-shadow: 0 0 5px #000;
+  display: flex;
+  overflow: hidden;
+  transition: 0.3s;
+}
+#switcher {
+  display: flex;
+  position: absolute;
+  z-index: 5;
+  top: 100%;
+  left: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  transform: translate(-100%, -100%);
+  background-color: teal;
+  width: 200px;
+  height: 30px;
+  border-radius: 28px 0 0 0;
+}
+.song-pic {
+  background-image: url(/assets/images/audio/chhnam_nis_oun_merl_kam_jruoch_jea_muoy_neak_na.jpg);
+  background-size: cover;
+  background-position: 50% 50%;
+  width: 120px;
+  min-width: 120px;
+}
+.song-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-weight: 100;
+  font-size: 12px;
+  font-family: "ubuntu-light", "content-light" !important;
+  color: #333;
+}
+.song-name {
+  font-size: 18px;
+}
+.caption {
+  color: teal;
+  margin-left: 6px;
+  cursor: pointer;
+}
+#player {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translate(0, -100%);
+  border-radius: 0 28px 28px 0;
+}

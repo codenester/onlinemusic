@@ -43,6 +43,9 @@
         </div>
     </div>
 </div>
+<?php
+include_once('./all_songs.php');
+?>
 <div id="top-bar">
     <div id="nav-bar">
         <div class="m-nav-item m-active" id="top-song">Top Songs</div>

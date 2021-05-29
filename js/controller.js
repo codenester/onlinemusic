@@ -21,6 +21,8 @@ export default class Controller {
       playlists: [],
       currentPlaylist: null,
     };
+    this.allKhSongs = [];
+    this.allEnSongs = [];
     this.topSongs = [];
     this.popularEngSongs = [];
     this.popularKhSongs = [];
@@ -43,6 +45,7 @@ export default class Controller {
       minDate: new Date(1960, 1, 1),
       maxDate: new Date(),
     });
+    this.musicPageMode = "topSong";
   }
   get start() {
     //global
@@ -489,48 +492,50 @@ export default class Controller {
       }, 250);
     };
     this.dom.page.music.onwheel = (e) => {
-      if (e.deltaY > 0) {
-        if (currentTopCate < 4) {
-          currentSongPos++;
-          if (currentSongPos > 4) {
-            currentSongPos = 0;
-            currentTopCate++;
-            if (currentTopCate > 3) currentTopCate = 0;
-            this.dom.text.listTitle.innerText = titles[currentTopCate];
-            this.topSongs[currentTopCate].forEach((v, i) => {
-              this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
-            });
-            this.dom.util.indicators.forEach((v, i) => {
-              if (i != currentTopCate) {
-                v.classList.remove("active");
-              } else {
-                v.classList.add("active");
-              }
-            });
+      if (this.musicPageMode == "topSong") {
+        if (e.deltaY > 0) {
+          if (currentTopCate < 4) {
+            currentSongPos++;
+            if (currentSongPos > 4) {
+              currentSongPos = 0;
+              currentTopCate++;
+              if (currentTopCate > 3) currentTopCate = 0;
+              this.dom.text.listTitle.innerText = titles[currentTopCate];
+              this.topSongs[currentTopCate].forEach((v, i) => {
+                this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
+              });
+              this.dom.util.indicators.forEach((v, i) => {
+                if (i != currentTopCate) {
+                  v.classList.remove("active");
+                } else {
+                  v.classList.add("active");
+                }
+              });
+            }
+          }
+        } else {
+          if (currentTopCate >= 0) {
+            currentSongPos--;
+            if (currentSongPos < 0) {
+              currentSongPos = 4;
+              currentTopCate--;
+              if (currentTopCate < 0) currentTopCate = 3;
+              this.dom.text.listTitle.innerText = titles[currentTopCate];
+              this.topSongs[currentTopCate].forEach((v, i) => {
+                this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
+              });
+              this.dom.util.indicators.forEach((v, i) => {
+                if (i != currentTopCate) {
+                  v.classList.remove("active");
+                } else {
+                  v.classList.add("active");
+                }
+              });
+            }
           }
         }
-      } else {
-        if (currentTopCate >= 0) {
-          currentSongPos--;
-          if (currentSongPos < 0) {
-            currentSongPos = 4;
-            currentTopCate--;
-            if (currentTopCate < 0) currentTopCate = 3;
-            this.dom.text.listTitle.innerText = titles[currentTopCate];
-            this.topSongs[currentTopCate].forEach((v, i) => {
-              this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
-            });
-            this.dom.util.indicators.forEach((v, i) => {
-              if (i != currentTopCate) {
-                v.classList.remove("active");
-              } else {
-                v.classList.add("active");
-              }
-            });
-          }
-        }
+        switchAudio();
       }
-      switchAudio();
     };
     this.dom.image.logoWrap.onclick = async () => {
       if (openMenu) {
@@ -598,6 +603,62 @@ export default class Controller {
     audio.onplay = () => {
       this.dom.image.cd.style.animationPlayState = "running";
     };
-    
+    this.dom.navigation.logout.onclick = async () => {
+      this.viewEvent.takeTransition;
+      audio.pause();
+      this.api.logout();
+      this.dom.btn.signup.style.display = "flex";
+      this.dom.btn.login.style.display = "flex";
+      this.dom.text.currentUser.style.display = "none";
+      this.dom.btn.logout.style.display = "none";
+      await this.viewEvent.animateFromMusic;
+      await this.viewEvent.animateToHome;
+    };
+    let getAllSongs = async () => {
+      let res = await this.api.getAllSongs();
+      if (res.success) {
+        this.allKhSongs = res.result.info.khSongs;
+        this.allEnSongs = res.result.info.enSongs;
+        document.getElementById("all-song-wrap").innerHTML = "";
+        this.viewEvent.generateSongs(this.allKhSongs);
+        Array.from(document.getElementsByClassName("song")).forEach(
+          (v) => (v.style.transform = "scale(1)")
+        );
+      } else {
+        console.log(res.msg);
+      }
+    };
+    this.dom.navigation.allSong.onclick = async (e) => {
+      this.viewEvent.closeMenu;
+      getAllSongs();
+      openMenu = false;
+      Array.from(e.target.parentNode.children).forEach((v, i) => {
+        let j = Array.from(e.target.parentNode.children).indexOf(e.target);
+        if (i == j) {
+          v.classList.add("m-active");
+        } else {
+          v.classList.remove("m-active");
+        }
+      });
+      openMenu = false;
+      this.musicPageMode = "allSong";
+      this.viewEvent.takeTransition;
+      audio.pause();
+      await this.viewEvent.animateFromTopSong;
+      this.dom.page.music.style.display = "none";
+      this.dom.page.allSong.style.display = "flex";
+    };
+    this.dom.navigation.topSong.onclick = async () => {
+      this.viewEvent.closeMenu;
+      openMenu = false;
+      if (this.musicPageMode != "topSong") {
+        this.viewEvent.takeTransition;
+        audio.load();
+        audio.play();
+        this.dom.page.music.style.display = "flex";
+        await this.helperEvent.timeOut(100);
+        await this.viewEvent.animateToTopSong;
+      }
+    };
   }
 }
