@@ -45,11 +45,11 @@
 </div>
 <div id="top-bar">
     <div id="nav-bar">
-        <div class="m-nav-item">Logout</div>
+        <div class="m-nav-item m-active">Top Songs</div>
         <div class="m-nav-item">Playlist</div>
         <div class="m-nav-item">Donate</div>
-        <div class="m-nav-item">Career</div>
         <div class="m-nav-item">About</div>
+        <div class="m-nav-item">Logout</div>
         <div id="logo-wrap"></div>
         <div id="menu">
             <div id="bar-wrap">

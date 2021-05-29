@@ -144,6 +144,9 @@
   cursor: pointer;
   transition: 0.2s;
 }
+.m-active {
+  font-family: var(--font-regular);
+}
 .active {
   background-color: rgb(2, 241, 241);
 }

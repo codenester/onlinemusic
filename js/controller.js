@@ -518,6 +518,10 @@ export default class Controller {
       switchAudio();
     };
     this.dom.image.logoWrap.onclick = async () => {
+      if (openMenu) {
+        this.viewEvent.closeMenu;
+        openMenu = false;
+      }
       audio.pause();
       audio.currentTime = 0;
       this.viewEvent.takeTransition;
@@ -535,7 +539,12 @@ export default class Controller {
     this.dom.util.indicators.forEach((v, i) => {
       v.onclick = () => {
         currentTopCate = i;
+        this.dom.text.listTitle.innerText = titles[currentTopCate];
         currentSongPos = 0;
+        this.dom.text.listData.forEach((el, j) => {
+          let target = this.topSongs[currentTopCate];
+          el.innerText = target[j].nameKh ?? target[j].name;
+        });
         this.dom.util.indicators.forEach((el, j) => {
           if (j != i) {
             el.classList.remove("active");
