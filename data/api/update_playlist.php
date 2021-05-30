@@ -1,12 +1,11 @@
     <?php
     include_once('../config/config.php');
-    include_once('../model/song.php');
-    define('TABLE_MUSIC', 'music');
+    include_once('../model/playlist.php');
+    define('TABLE_PLAYLIST', 'music');
     $id = $decodeData['id'];
-    $forDownload = $decodeData['download'];
     $oldVal = $sql->select([
-        'table' => TABLE_MUSIC,
-        'fields' => $forDownload ? ['downloaded_count'] : ['listened_count'],
+        'table' => TABLE_PLAYLIST,
+        'fields' => ['listened_count'],
         'condition' => ['id' => $id],
         'comparison' => '='
     ]);
@@ -15,11 +14,10 @@
         $connection->close();
         die();
     }
-    $count = (int)$oldVal['info'][0][$forDownload ? 'downloaded_count' : 'listened_count'];
+    $count = (int)$oldVal['info'][0]['listened_count'];
     $res = $sql->update([
-        'table' => TABLE_MUSIC,
-        'entries' => $forDownload ? ['downloaded_count' => $count + 1]
-            : ['listened_count' => $count + 1],
+        'table' => TABLE_PLAYLIST,
+        'entries' => ['listened_count' => $count + 1],
         'condition' => ['id' => $id],
         'comparison' => '='
     ]);

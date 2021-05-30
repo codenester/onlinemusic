@@ -96,4 +96,37 @@ export default class API {
       };
     }
   }
+  async addPlaylist($requestData) {
+    try {
+      let res = await this.post(this.helper.api.addPlaylist, $requestData);
+      return res;
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
+  async getPlaylist($requestData) {
+    try {
+      let res = await this.post(this.helper.api.getPlaylist, $requestData);
+      return res;
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
+  async updatePlaylist($requestData) {
+    try {
+      let res = await this.post(this.helper.api.updatePlaylist, $requestData);
+      return res;
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
 }

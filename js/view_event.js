@@ -324,38 +324,70 @@ export default class ViewEvent {
     await this.helperEvent.timeOut(1000);
     this.dom.frame.dialog.style.transform = "scale(0,0)";
   }
-  generateSongs(songs, updateSong) {
+  generateSongs(songs, updateSong, addPlaylist, forPlaylist, playlist) {
     songs.forEach(async (v, i) => {
       let songCard = document.createElement("div");
       songCard.className = "song";
       let songPic = document.createElement("div");
       songPic.className = "song-pic";
-      songPic.style.backgroundImage = `url(/${v.image})`;
+      songPic.style.backgroundImage = `url(/${
+        forPlaylist ? v.song.image : v.image
+      })`;
       songCard.appendChild(songPic);
       let songInfo = document.createElement("div");
       songInfo.className = "song-info";
       let songName = document.createElement("div");
       songName.className = "song-name";
-      songName.innerText = v.nameKh ?? v.name;
+      songName.innerText = forPlaylist
+        ? v.song.nameKh ?? v.song.name
+        : v.nameKh ?? v.name;
+      songInfo.appendChild(songName);
       let artists = document.createElement("div");
       artists.className = "song-artist";
-      artists.innerText = v.artists.map((v) => v.nameKh ?? v.name).join(" ft ");
-      let downloaded = document.createElement("div");
-      downloaded.className = "downloaded";
-      downloaded.innerText = `Downloaded: ${v.downloadCount}`;
+      artists.innerText = forPlaylist
+        ? v.song.artists.map((v) => v.nameKh ?? v.name).join(" ft ")
+        : v.artists.map((v) => v.nameKh ?? v.name).join(" ft ");
+      songInfo.appendChild(artists);
+      if (!forPlaylist) {
+        let downloaded = document.createElement("div");
+        downloaded.className = "downloaded";
+        downloaded.innerText = `Downloaded: ${v.downloadCount}`;
+        songInfo.appendChild(downloaded);
+      }
       let listened = document.createElement("div");
       listened.className = "listened";
-      listened.innerText = `Listened: ${v.listenedCount}`;
-      let addToPlaylist = document.createElement("div");
-      addToPlaylist.className = "add-to-playlist";
-      let listIcon = document.createElement("i");
-      listIcon.classList.add("fa");
-      listIcon.classList.add("fa-list");
-      addToPlaylist.appendChild(listIcon);
-      let addToPlaylistSpan = document.createElement("span");
-      addToPlaylistSpan.className = "caption";
-      addToPlaylistSpan.innerText = "Add to playlist";
-      addToPlaylist.appendChild(addToPlaylistSpan);
+      listened.innerText = `Listened: ${
+        forPlaylist ? v.listened_count : v.listenedCount
+      }`;
+      songInfo.appendChild(listened);
+      if (!forPlaylist) {
+        let addToPlaylist = document.createElement("div");
+        addToPlaylist.className = "add-to-playlist";
+        let listIcon = document.createElement("i");
+        listIcon.classList.add("fa");
+        listIcon.classList.add("fa-list");
+        addToPlaylist.appendChild(listIcon);
+        let addToPlaylistSpan = document.createElement("span");
+        addToPlaylistSpan.className = "caption";
+        addToPlaylistSpan.innerText = "Add to playlist";
+        addToPlaylist.appendChild(addToPlaylistSpan);
+        songInfo.appendChild(addToPlaylist);
+        if (playlist.some((el) => el.music == v.id)) {
+          addToPlaylist.style.color = "#ccc";
+          addToPlaylist.children[1].style.color = "#ccc";
+          addToPlaylist.children[1].style.cursor = "default";
+          addToPlaylist.style.cursor = "default";
+        }
+        addToPlaylist.onclick = () => {
+          if (addToPlaylist.style.color != "#ccc") {
+            addPlaylist(v.id);
+            addToPlaylist.style.color = "#ccc";
+            addToPlaylist.children[1].style.color = "#ccc";
+            addToPlaylist.children[1].style.cursor = "default";
+            addToPlaylist.style.cursor = "default";
+          }
+        };
+      }
       let download = document.createElement("div");
       download.className = "download";
       let downloadIcon = document.createElement("i");
@@ -376,11 +408,6 @@ export default class ViewEvent {
       playSpan.className = "caption";
       playSpan.innerText = "Play";
       play.appendChild(playSpan);
-      songInfo.appendChild(songName);
-      songInfo.appendChild(artists);
-      songInfo.appendChild(downloaded);
-      songInfo.appendChild(listened);
-      songInfo.appendChild(addToPlaylist);
       songInfo.appendChild(download);
       songInfo.appendChild(play);
       songCard.appendChild(songInfo);
@@ -390,9 +417,14 @@ export default class ViewEvent {
         let source = document.getElementById("all-song-source");
         audio.pause();
         if (playSpan.innerText == "Play") {
-          updateSong({ id: v.id, forDownload: false });
-          source.src = `/${v.source}`;
+          updateSong(
+            { id: forPlaylist ? v.music : v.id, download: false },
+            forPlaylist ? v.id : null
+          );
+          source.src = `/${forPlaylist ? v.song.source : v.source}`;
           audio.load();
+          document.getElementById("player").style.transform =
+            "translate(0,-100%)";
           audio.play();
           playSpan.innerText = "Playing";
           playSpan.style.color = "green";
@@ -408,18 +440,24 @@ export default class ViewEvent {
           let songEls = Array.from(document.getElementsByClassName("song"));
           songEls.forEach((el, j) => {
             if (i != j) {
-              el.children[1].children[6].children[0].classList.remove(
-                "fa-pause"
-              );
+              el.children[1].children[
+                forPlaylist ? 4 : 6
+              ].children[0].classList.remove("fa-pause");
               if (
-                !el.children[1].children[6].children[0].classList.contains(
-                  "fa-play"
-                )
+                !el.children[1].children[
+                  forPlaylist ? 4 : 6
+                ].children[0].classList.contains("fa-play")
               ) {
-                el.children[1].children[6].children[0].classList.add("fa-play");
+                el.children[1].children[
+                  forPlaylist ? 4 : 6
+                ].children[0].classList.add("fa-play");
               }
-              el.children[1].children[6].children[1].innerText = "Play";
-              el.children[1].children[6].children[1].style.color = "teal";
+              el.children[1].children[
+                forPlaylist ? 4 : 6
+              ].children[1].innerText = "Play";
+              el.children[1].children[
+                forPlaylist ? 4 : 6
+              ].children[1].style.color = "teal";
             }
           });
         } else {
@@ -431,11 +469,15 @@ export default class ViewEvent {
       };
       download.onclick = () => {
         let a = document.createElement("a");
-        a.href = `/${v.source}`;
-        a.download = `${v.source.split("/")[v.source.split("/").length - 1]}`;
+        a.href = `/${forPlaylist ? v.song.source : v.source}`;
+        a.download = `${
+          forPlaylist
+            ? v.song.source.split("/")[v.song.source.split("/").length - 1]
+            : v.source.split("/")[v.source.split("/").length - 1]
+        }`;
         a.target = "_blank";
         a.click();
-        updateSong({ id: v.id, download: true });
+        updateSong({ id: forPlaylist ? v.music : v.id, download: true });
         downloaded.innerText = `Downloaded: ${
           parseInt(
             downloaded.innerText.split(" ")[

@@ -13,6 +13,9 @@ export default class HelperString {
       getTopSongs: "/data/api/get_top_songs.php",
       getAllSongs: "/data/api/get_all_songs.php",
       updateSong: "/data/api/update_song.php",
+      addPlaylist: "/data/api/add_playlist.php",
+      getPlaylist: "/data/api/get_playlist.php",
+      updatePlaylist: "/data/api/update_playlist.php",
     };
   }
 }
