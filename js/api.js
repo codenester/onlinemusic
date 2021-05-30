@@ -85,4 +85,15 @@ export default class API {
       };
     }
   }
+  async updateSong($requestData) {
+    try {
+      let res = await this.post(this.helper.api.updateSong, $requestData);
+      return res;
+    } catch (e) {
+      return {
+        success: false,
+        msg: e,
+      };
+    }
+  }
 }

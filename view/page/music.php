@@ -6,12 +6,56 @@
                 <div id="list-container">
                     <div id="list-title">Popular Khmer Songs</div>
                     <div id="data-wrap">
-                        <div class="list-data current"></div>
-                        <div class="list-data"></div>
-                        <div class="list-data"></div>
-                        <div class="list-data"></div>
-                        <div class="list-data"></div>
-
+                        <div class="list-data-container">
+                            <div class="list-data current"></div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <span class='dropbox'>
+                                    <span class='d-download'>Download</span>
+                                    <span class="d-add-to-playlist">Add to playlist</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list-data-container">
+                            <div class="list-data"></div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <span class='dropbox'>
+                                    <span class='d-download'>Download</span>
+                                    <span class="d-add-to-playlist">Add to playlist</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list-data-container">
+                            <div class="list-data"></div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <span class='dropbox'>
+                                    <span class='d-download'>Download</span>
+                                    <span class="d-add-to-playlist">Add to playlist</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list-data-container">
+                            <div class="list-data"></div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <span class='dropbox'>
+                                    <span class='d-download'>Download</span>
+                                    <span class="d-add-to-playlist">Add to playlist</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list-data-container">
+                            <div class="list-data"></div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <span class='dropbox'>
+                                    <span class='d-download'>Download</span>
+                                    <span class="d-add-to-playlist">Add to playlist</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <audio id="music-player" controls>
                         <source id="music-source" src="/assets/audio/hit_the_road.ogg">

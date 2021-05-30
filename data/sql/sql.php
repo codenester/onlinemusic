@@ -12,10 +12,11 @@
             $keys = [];
             $dbKeys = '*';
             if (key_exists('fields', $arr)) {
-                foreach ($arr['keys'] as $key) {
+                foreach ($arr['fields'] as $key) {
                     array_push($keys, $key);
                 }
                 $dbKeys = join(', ', $keys);
+                $dbKeys = "($dbKeys)";
             }
             $q = "SELECT $dbKeys FROM $tbl";
             $conditions = [];
@@ -71,6 +72,40 @@
                 return ['success' => false, 'info' => $this->con->error];
             }
             return ['success' => true, 'info' => 'inserted'];
+        }
+        public function update($arr)
+        {
+            $tbl = $arr['table'];
+            $entries = [];
+            foreach ($arr['entries'] as $key => $val) {
+                if (gettype($val) == 'string') {
+                    $val = "'$val'";
+                }
+                array_push($entries, "$key=$val");
+            }
+            $qEntries = join(', ', $entries);
+            $q = "UPDATE $tbl SET $qEntries";
+            $conditions = [];
+            if (key_exists('condition', $arr)) {
+                foreach ($arr['condition'] as $f => $v) {
+                    if (gettype($v) == 'string') {
+                        $v = "'$v'";
+                    }
+                    array_push($conditions, $f . $arr['comparison'] . $v);
+                }
+                if (count($arr['condition']) > 1) {
+                    $conjunction = $arr['conjunction'];
+                    $condition = join(" $conjunction ", $conditions);
+                } else {
+                    $condition = $conditions[0];
+                }
+                $q = "$q WHERE $condition";
+            }
+            $res = $this->con->query($q);
+            if (!$res) {
+                return ['success' => false, 'info' => $this->con->error];
+            }
+            return ['success' => true, 'info' => 'updated'];
         }
     }
     ?>

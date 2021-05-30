@@ -306,7 +306,7 @@ export default class ViewEvent {
     dialog.appendChild(processTeller);
     document.body.appendChild(modal);
     await this.helperEvent.timeOut(100);
-    dialog.style.transform = "scale(1)";
+    dialog.style.transform = "scale(1,1)";
   }
   async stopDataProcess() {
     this.dom.frame.dialog.removeChild(this.dom.util.svg);
@@ -322,10 +322,10 @@ export default class ViewEvent {
     </svg>`;
     this.dom.text.processTeller.innerText = "Done";
     await this.helperEvent.timeOut(1000);
-    this.dom.frame.dialog.style.transform = "scale(0)";
+    this.dom.frame.dialog.style.transform = "scale(0,0)";
   }
-  generateSongs(songs) {
-    songs.forEach((v) => {
+  generateSongs(songs, updateSong) {
+    songs.forEach(async (v, i) => {
       let songCard = document.createElement("div");
       songCard.className = "song";
       let songPic = document.createElement("div");
@@ -385,6 +385,65 @@ export default class ViewEvent {
       songInfo.appendChild(play);
       songCard.appendChild(songInfo);
       document.getElementById("all-song-wrap").appendChild(songCard);
+      play.onclick = () => {
+        let audio = document.getElementById("player");
+        let source = document.getElementById("all-song-source");
+        audio.pause();
+        if (playSpan.innerText == "Play") {
+          updateSong({ id: v.id, forDownload: false });
+          source.src = `/${v.source}`;
+          audio.load();
+          audio.play();
+          playSpan.innerText = "Playing";
+          playSpan.style.color = "green";
+          playIcon.classList.remove("fa-play");
+          playIcon.classList.add("fa-pause");
+          listened.innerText = `Listened: ${
+            parseInt(
+              listened.innerText.split(" ")[
+                listened.innerText.split(" ").length - 1
+              ]
+            ) + 1
+          }`;
+          let songEls = Array.from(document.getElementsByClassName("song"));
+          songEls.forEach((el, j) => {
+            if (i != j) {
+              el.children[1].children[6].children[0].classList.remove(
+                "fa-pause"
+              );
+              if (
+                !el.children[1].children[6].children[0].classList.contains(
+                  "fa-play"
+                )
+              ) {
+                el.children[1].children[6].children[0].classList.add("fa-play");
+              }
+              el.children[1].children[6].children[1].innerText = "Play";
+              el.children[1].children[6].children[1].style.color = "teal";
+            }
+          });
+        } else {
+          playSpan.innerText = "Play";
+          playSpan.style.color = "teal";
+          playIcon.classList.remove("fa-pause");
+          playIcon.classList.add("fa-play");
+        }
+      };
+      download.onclick = () => {
+        let a = document.createElement("a");
+        a.href = `/${v.source}`;
+        a.download = `${v.source.split("/")[v.source.split("/").length - 1]}`;
+        a.target = "_blank";
+        a.click();
+        updateSong({ id: v.id, download: true });
+        downloaded.innerText = `Downloaded: ${
+          parseInt(
+            downloaded.innerText.split(" ")[
+              downloaded.innerText.split(" ").length - 1
+            ]
+          ) + 1
+        }`;
+      };
     });
   }
 }

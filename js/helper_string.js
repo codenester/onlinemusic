@@ -12,6 +12,7 @@ export default class HelperString {
       logout: "/data/api/logout.php",
       getTopSongs: "/data/api/get_top_songs.php",
       getAllSongs: "/data/api/get_all_songs.php",
+      updateSong: "/data/api/update_song.php",
     };
   }
 }

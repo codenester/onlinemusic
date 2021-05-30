@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/all_songs.css">
 <div id="all-song-page">
     <div id="all-song-wrap">
-        <div class="song">
+        <div class="song scale-0">
             <div class="song-pic"></div>
             <div class="song-info">
                 <div class="song-name">អង្វរ</div>
@@ -15,62 +15,6 @@
                 <div class="play"><i class="fa fa-play" aria-hidden="true"></i> <span class="caption">Play</span>
                 </div>
             </div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
-        </div>
-        <div class="song">
-            <div class="song-pic"></div>
-            <div class="song-info"></div>
         </div>
     </div>
 </div>

@@ -199,12 +199,45 @@
   justify-content: center;
 }
 .list-data {
-  width: 100%;
   text-align: left;
   margin: 5px 0;
   font-family: var(--font-light);
   cursor: pointer;
   transition: 0.2s;
+}
+.list-data-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.option {
+  font-size: 12px;
+  cursor: pointer;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+}
+.dropbox {
+  position: absolute;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  transition: 0.2s;
+  transform: scaleY(0);
+  transform-origin: 50% 0%;
+  opacity: 0;
+}
+.d-download,
+.d-add-to-playlist {
+  padding: 5px 16px;
+  font-size: 12px;
+  transition: 0.1s;
+}
+.d-download:hover,
+.d-add-to-playlist:hover {
+  background-color: #eee;
 }
 .current {
   font-family: var(--font-regular);

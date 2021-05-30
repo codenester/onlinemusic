@@ -7,6 +7,8 @@
   align-items: center;
 }
 #all-song-wrap {
+  transition: 0.4s;
+  opacity: 0;
   display: flex;
   position: absolute;
   width: calc(100% - 40px);
@@ -20,11 +22,13 @@
   width: 280px;
   height: 200px;
   background-color: #fff;
-  transform: scale(0);
   box-shadow: 0 0 5px #000;
   display: flex;
   overflow: hidden;
   transition: 0.3s;
+}
+.scale-0 {
+  transform: scale(0, 0);
 }
 #switcher {
   display: flex;
@@ -34,11 +38,12 @@
   left: 100%;
   align-items: center;
   justify-content: space-evenly;
-  transform: translate(-100%, -100%);
+  transform: translate(0, -100%);
   background-color: teal;
   width: 200px;
   height: 30px;
   border-radius: 28px 0 0 0;
+  transition: 0.4s;
 }
 .song-pic {
   background-image: url(/assets/images/audio/chhnam_nis_oun_merl_kam_jruoch_jea_muoy_neak_na.jpg);
@@ -69,6 +74,15 @@
   position: absolute;
   top: 100%;
   left: 0;
-  transform: translate(0, -100%);
+  transform: translate(-100%, -100%);
   border-radius: 0 28px 28px 0;
+  transition: 0.4s;
+}
+#kh-song,
+#en-song {
+  cursor: pointer;
+  color: #ddd;
+}
+#kh-song {
+  color: #fff;
 }

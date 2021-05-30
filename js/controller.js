@@ -28,7 +28,6 @@ export default class Controller {
     this.popularKhSongs = [];
     this.trendingEngSongs = [];
     this.trendingKhSongs = [];
-
     this.user = new User();
     this.user.gender = "Male";
     this.user.image = `url(${this.helperString.filePath.maleAvatar})`;
@@ -46,6 +45,7 @@ export default class Controller {
       maxDate: new Date(),
     });
     this.musicPageMode = "topSong";
+    this.allSongMode = "kh";
   }
   get start() {
     //global
@@ -78,7 +78,6 @@ export default class Controller {
       this.dom.file.audioSource.src = "/" + this.popularKhSongs[0].source;
       this.dom.image.cd.style.backgroundImage = `url(/${this.popularKhSongs[0].image})`;
       this.dom.text.listTitle.innerText = "Popular Khmer Songs";
-
       this.popularKhSongs.forEach((v, i) => {
         this.dom.text.listData[i].innerText = v.nameKh ?? v.name;
       });
@@ -488,6 +487,10 @@ export default class Controller {
           this.dom.image.cd.style.animationDuration = "20s";
           audio.load();
           audio.play();
+          this.api.updateSong({
+            id: this.topSongs[currentTopCate][currentSongPos].id,
+            download: false,
+          });
         }, 250);
       }, 250);
     };
@@ -535,6 +538,53 @@ export default class Controller {
           }
         }
         switchAudio();
+      }
+    };
+    let options = Array.from(document.getElementsByClassName("option"));
+    options.forEach((v) => {
+      v.onclick = () => {
+        let i = options.indexOf(v);
+        let dropBoxes = Array.from(document.getElementsByClassName("dropbox"));
+        v.children[1].style.transform = "scaleY(1)";
+        v.children[1].style.opacity = 1;
+        dropBoxes.forEach((el, j) => {
+          if (i != j) {
+            el.style.transform = "scaleY(0)";
+            el.style.opacity = 0;
+          }
+        });
+      };
+    });
+    let dDownloads = Array.from(document.getElementsByClassName("d-download"));
+    let dAddToPlaylists = Array.from(
+      document.getElementsByClassName("d-add-to-playlist")
+    );
+    dDownloads.forEach((v, i) => {
+      v.onclick = () => {
+        this.api.updateSong({
+          id: this.topSongs[currentTopCate][i].id,
+          download: true,
+        });
+        let a = document.createElement("a");
+        a.href = `/${this.topSongs[currentTopCate][i].source}`;
+        a.download =
+          this.topSongs[currentTopCate][i].source.split("/")[
+            this.topSongs[currentTopCate][i].source.split("/").length - 1
+          ];
+        a.target = "_blank";
+        a.click();
+      };
+    });
+    window.onclick = (e) => {
+      if (
+        !e.target.classList.contains("option") &&
+        !e.target.classList.contains("fas")
+      ) {
+        let dropBoxes = Array.from(document.getElementsByClassName("dropbox"));
+        dropBoxes.forEach((el) => {
+          el.style.transform = "scaleY(0)";
+          el.style.opacity = 0;
+        });
       }
     };
     this.dom.image.logoWrap.onclick = async () => {
@@ -614,50 +664,87 @@ export default class Controller {
       await this.viewEvent.animateFromMusic;
       await this.viewEvent.animateToHome;
     };
+    let updateSong = async (data) => {
+      let res = await this.api.updateSong(data);
+      console.log(res);
+    };
     let getAllSongs = async () => {
       let res = await this.api.getAllSongs();
       if (res.success) {
         this.allKhSongs = res.result.info.khSongs;
         this.allEnSongs = res.result.info.enSongs;
         document.getElementById("all-song-wrap").innerHTML = "";
-        this.viewEvent.generateSongs(this.allKhSongs);
-        Array.from(document.getElementsByClassName("song")).forEach(
-          (v) => (v.style.transform = "scale(1)")
-        );
+        this.viewEvent.generateSongs(this.allKhSongs, updateSong);
+        document.getElementById("all-song-wrap").style.opacity = 1;
       } else {
         console.log(res.msg);
       }
     };
+    let switchAllSong = (mode) => {
+      document.getElementById("all-song-wrap").innerHTML = "";
+      this.viewEvent.generateSongs(
+        mode == "kh" ? this.allKhSongs : this.allEnSongs,
+        updateSong
+      );
+      document.getElementById("all-song-wrap").style.opacity = 1;
+    };
     this.dom.navigation.allSong.onclick = async (e) => {
       this.viewEvent.closeMenu;
-      getAllSongs();
-      openMenu = false;
-      Array.from(e.target.parentNode.children).forEach((v, i) => {
-        let j = Array.from(e.target.parentNode.children).indexOf(e.target);
-        if (i == j) {
-          v.classList.add("m-active");
-        } else {
-          v.classList.remove("m-active");
-        }
-      });
-      openMenu = false;
-      this.musicPageMode = "allSong";
-      this.viewEvent.takeTransition;
-      audio.pause();
-      await this.viewEvent.animateFromTopSong;
-      this.dom.page.music.style.display = "none";
-      this.dom.page.allSong.style.display = "flex";
+      if (this.musicPageMode != "allSong") {
+        getAllSongs();
+        openMenu = false;
+        Array.from(e.target.parentNode.children).forEach((v, i) => {
+          let j = Array.from(e.target.parentNode.children).indexOf(e.target);
+          if (i == j) {
+            v.classList.add("m-active");
+          } else {
+            v.classList.remove("m-active");
+          }
+        });
+        openMenu = false;
+        this.musicPageMode = "allSong";
+        this.viewEvent.takeTransition;
+        audio.pause();
+        await this.viewEvent.animateFromTopSong;
+        this.dom.page.music.style.display = "none";
+        this.dom.page.allSong.style.display = "flex";
+        document.getElementById("switcher").style.transform =
+          "translate(-100%,-100%)";
+        document.getElementById("player").style.transform =
+          "translate(0,-100%)";
+      }
     };
     this.dom.navigation.topSong.onclick = async () => {
       this.viewEvent.closeMenu;
       openMenu = false;
       if (this.musicPageMode != "topSong") {
+        this.dom.page.allSong.style.display = "none";
         this.viewEvent.takeTransition;
         audio.load();
         audio.play();
         this.dom.page.music.style.display = "flex";
         await this.helperEvent.timeOut(100);
         await this.viewEvent.animateToTopSong;
+        this.musicPageMode = "topSong";
+      }
+    };
+    document.getElementById("kh-song").onclick = (e) => {
+      e.target.style.color = "#fff";
+      e.target.nextElementSibling.style.color = "#ddd";
+      if (this.allSongMode != "kh") {
+        document.getElementById("player").pause();
+        switchAllSong("kh");
+        this.allSongMode = "kh";
+      }
+    };
+
+    document.getElementById("en-song").onclick = (e) => {
+      e.target.style.color = "#fff";
+      e.target.previousElementSibling.style.color = "#ddd";
+      if (this.allSongMode != "en") {
+        document.getElementById("player").pause();
+        switchAllSong("en");
+        this.allSongMode = "en";
       }
     };
   }
