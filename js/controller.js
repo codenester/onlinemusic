@@ -224,6 +224,16 @@ export default class Controller {
       this.dom.btn.signup.style.transition = "0s";
       this.dom.btn.login.style.transition = "0s";
     };
+    document.getElementById("donate").onclick = async () => {
+      await this.viewEvent.showNotAvailableFeature;
+    };
+    document.getElementById("career").onclick = async () =>
+      await this.viewEvent.showNotAvailableFeature;
+    document.getElementById("h-about").onclick = async () => {
+      this.viewEvent.takeTransition;
+      await this.viewEvent.animateFromHome;
+      document.getElementById("about-page").style.display = "flex";
+    };
 
     //signup page
     this.validationMsg = {
@@ -688,6 +698,9 @@ export default class Controller {
       this.dom.image.cd.style.animationPlayState = "running";
     };
     this.dom.navigation.logout.onclick = async () => {
+      this.viewEvent.closeMenu;
+      openMenu = false;
+      this.musicPageMode = "topSong";
       this.viewEvent.takeTransition;
       audio.pause();
       this.api.logout();
@@ -750,6 +763,7 @@ export default class Controller {
     this.dom.navigation.allSong.onclick = async (e) => {
       this.viewEvent.closeMenu;
       openMenu = false;
+      document.getElementById("all-song-wrap").style.display = "flex";
       if (this.musicPageMode != "allSong") {
         document.getElementById("player").pause();
         document.getElementById("player").style.transform =
@@ -794,6 +808,7 @@ export default class Controller {
     this.dom.navigation.playlist.onclick = async (e) => {
       this.viewEvent.closeMenu;
       openMenu = false;
+      document.getElementById("all-song-wrap").style.display = "flex";
       if (this.musicPageMode != "playlist") {
         document.getElementById("player").pause();
         document.getElementById("player").style.transform =
@@ -820,7 +835,6 @@ export default class Controller {
         this.viewEvent.takeTransition;
         audio.pause();
         await this.viewEvent.animateFromTopSong;
-        this.dom.page.music.style.display = "none";
         this.dom.page.allSong.style.display = "flex";
       }
     };
@@ -846,6 +860,34 @@ export default class Controller {
         document.getElementById("player").style.transform =
           "translate(-100%,-100%)";
       }
+    };
+    document.getElementById("about").onclick = async (e) => {
+      this.viewEvent.closeMenu;
+      openMenu = false;
+      this.musicPageMode = "topSong";
+      Array.from(e.target.parentNode.children).forEach((v, i) => {
+        let j = Array.from(e.target.parentNode.children).indexOf(e.target);
+        if (i == j) {
+          v.classList.add("m-active");
+        } else {
+          v.classList.remove("m-active");
+        }
+      });
+      this.viewEvent.takeTransition;
+      document.getElementById("all-song-wrap").style.display = "none";
+      document.getElementById("switcher").style.transform =
+        "translate(100%,-100%)";
+      document.getElementById("player").style.transform =
+        "translate(-100%,-100%)";
+      await this.viewEvent.animateFromMusic;
+      document.getElementById("about-page").style.display = "flex";
+      this.dom.page.allSong.style.display = "none";
+    };
+    //about page
+    document.getElementById("a-back").onclick = async () => {
+      this.viewEvent.takeTransition;
+      document.getElementById("about-page").style.display = "none";
+      await this.viewEvent.animateToHome;
     };
   }
 }

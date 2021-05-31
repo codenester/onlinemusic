@@ -26,9 +26,9 @@
     <div id="right-part">
         <div id="top-sect">
             <div id="nav-wrap">
-                <div class="nav-item">Donate</div>
-                <div class="nav-item">Career</div>
-                <div class="nav-item">About</div>
+                <div class="nav-item" id="donate">Donate</div>
+                <div class="nav-item" id="career">Career</div>
+                <div class="nav-item" id="h-about">About</div>
             </div>
         </div>
         <div id="mid-sect">

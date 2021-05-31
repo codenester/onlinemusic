@@ -488,4 +488,39 @@ export default class ViewEvent {
       };
     });
   }
+  get showNotAvailableFeature() {
+    return (async () => {
+      this.takeTransition;
+      await this.animateFromHome;
+      let notAvailableText = document.createElement("div");
+      document.getElementById("foreground").appendChild(notAvailableText);
+      notAvailableText.style.position = "absolute";
+      notAvailableText.style.left = "50%";
+      notAvailableText.style.top = "50%";
+      notAvailableText.style.color = "#fff";
+      notAvailableText.style.transform = "translate(-50%,-50%) scale(0,0)";
+      notAvailableText.style.fontSize = "20px";
+      notAvailableText.style.justifyContent = "center";
+      notAvailableText.style.display = "flex";
+      notAvailableText.style.alignItems = "center";
+      notAvailableText.style.flexDirection = "column";
+      notAvailableText.style.transition = "0.4s";
+      notAvailableText.style.textAlign = "center";
+      notAvailableText.append("This feature is not available yet. Stay tune!");
+      let back = document.createElement("button");
+      back.className = "btn-type1";
+      back.innerText = "Back";
+      back.style.marginTop = "20px";
+      notAvailableText.append(back);
+      back.onclick = async () => {
+        notAvailableText.style.transform = "translate(-50%,-50%) scale(0,0)";
+        await this.helperEvent.timeOut();
+        document.getElementById("foreground").removeChild(notAvailableText);
+        this.takeTransition;
+        this.animateToHome;
+      };
+      await this.helperEvent.timeOut(200);
+      notAvailableText.style.transform = "translate(-50%,-50%) scale(1,1)";
+    })();
+  }
 }

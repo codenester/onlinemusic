@@ -1,0 +1,116 @@
+#about-page {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  color: #fff;
+}
+#top-side {
+  text-align: center;
+  padding: 10px;
+  font-family: var(--font-light);
+  animation: toDown 0.4s linear;
+}
+#mid-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 30px;
+}
+#rithea,
+#sreyvin {
+  flex: 1;
+  display: flex;
+}
+#rithea {
+  background: linear-gradient(90deg, #000, transparent);
+  margin-right: 20px;
+  animation: toLeft 0.5s linear;
+}
+#sreyvin {
+  background: linear-gradient(90deg, transparent, #000);
+  margin-left: 20px;
+  animation: toRight 0.5s linear;
+}
+#rithea .pic {
+  flex: 1;
+  max-width: 200px;
+  min-width: 200px;
+  background-image: url(/assets/images/member/rithea_profile.jpg);
+  background-size: cover;
+  background-position: 50%;
+}
+#sreyvin .pic {
+  background-image: url(/assets/images/member/sreyvin.jpg);
+  background-size: cover;
+  background-position: 50%;
+  flex: 1;
+  min-width: 200px;
+  max-width: 200px;
+}
+#rithea .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: center;
+  gap: 10px;
+}
+#sreyvin .info {
+  justify-content: center;
+  gap: 10px;
+  align-items: flex-end;
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+#rithea .info i {
+  margin-right: 10px;
+}
+#sreyvin .info i {
+  margin-left: 10px;
+}
+#bot-side {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  animation: toTop 0.4s linear;
+}
+#github {
+  flex: 1;
+  text-align: right;
+  font-family: var(--font-light);
+}
+.member-name {
+  font-size: 26px;
+  color: rgb(3, 202, 202);
+}
+.member-info {
+  font-family: var(--font-light);
+}
+a {
+  font-family: var(--font-light);
+}
+@keyframes toDown {
+  from {
+    transform: translateY(-100%);
+  }
+}
+@keyframes toLeft {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes toRight {
+  from {
+    transform: translateX(-100%);
+  }
+}
+@keyframes toTop {
+  from {
+    transform: translateY(100%);
+  }
+}
